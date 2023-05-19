@@ -1,0 +1,74 @@
+@font-face {
+    font-family: Jura;
+    src: url(../fonts/Jura.ttf);
+}
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+    color: #423939;
+    font-family: Jura;
+    padding: 0;
+}
+
+body{
+    -webkit-font-smoothing: antialiased;
+    background-color: #eceaea;
+}
+
+div.content{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content img{
+    width: 200px;
+}
+
+.content form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+form div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+input{
+    width: 350px;
+    border: 1px solid #807b7b;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #F9F9F9;
+}
+
+:focus{
+    outline: none;
+    box-shadow: 0 0 3px 1px #84102f;
+}
+
+form button{
+    font-size: 16px;
+    font-weight: bold;
+    width: 100px;
+    height: 34px;
+    border: 0;
+    border-radius: 15px;
+    background-color: #84102f;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: font-size 0.2s;
+}
+
+button:hover{
+    font-size: 17.5px;
+}
