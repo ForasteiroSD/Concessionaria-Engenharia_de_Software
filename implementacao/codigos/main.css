@@ -11,9 +11,68 @@
     padding: 0;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 body{
     -webkit-font-smoothing: antialiased;
     background-color: #eceaea;
+}
+
+
+header{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+header div, header h2{
+    width: 180px;
+}
+
+header h2{
+    text-align: center;
+}
+
+header img{
+    width: 60px;
+}
+
+header div:first-of-type{
+    margin-left: 15px;
+}
+
+header h2{
+    font-size: 26px;
+    margin-top: 2px;
+}
+
+header #date{
+    display: flex;
+    justify-content: right;
+    text-align: right;
+    margin-right: 15px;
+    margin-top: 8px;
+    gap: 15px;
+}
+
+header #date img{
+    width: 22px;
+    height: 25px;
+    margin-top: -2px;
+    cursor: pointer;
+}
+
+hr{
+    margin-top: 5px;
 }
 
 div.content{
@@ -36,13 +95,13 @@ div.content{
     margin-top: 40px;
 }
 
-form div{
+.content form div{
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-input{
+.content input{
     width: 350px;
     border: 1px solid #807b7b;
     border-radius: 10px;
@@ -55,7 +114,7 @@ input{
     box-shadow: 0 0 3px 1px #84102f;
 }
 
-form button{
+button{
     font-size: 16px;
     font-weight: bold;
     width: 100px;
@@ -71,4 +130,80 @@ form button{
 
 button:hover{
     font-size: 17.5px;
+}
+
+div.options{
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+div#menu{
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    padding: 5px 8px;
+    background-color: rgb(241, 239, 239);
+    border: 1px solid rgb(133, 130, 130);
+    border-radius: 5px;
+    gap: 50px;
+}
+
+div#menu h3{
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+div#selected{
+    background-color: #84102f;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+
+div#selected h3{
+    color: white;
+    margin-top: 0;
+}
+
+.consulta{
+    width: 50vw;
+    height: 600px;
+    border: 1px solid rgb(133, 130, 130);
+    margin-left: 25vw;
+    margin-top: 100px;
+    overflow-x: hidden;
+}    
+.consulta .campos{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.consulta .campos div{
+    display: flex;
+    flex-direction: column;
+}
+
+.campos div input, .campos div select{
+    width: 10vw;
+    border: 1px solid #807b7b;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #F9F9F9;
+}
+
+.consulta .resultados{
+    overflow-y: scroll;
+}
+
+#add_button{
+    width: 250px;
+    margin-left: 25vw;
+    margin-top: 15px;
+    padding: 5px;
+    font-size: 14px;
+}
+
+#add_button:hover{
+    font-size: 15px;
 }
