@@ -250,7 +250,7 @@ div.borders:nth-of-type(3){
     left: 59vw;
 }
 
-#back{
+.back{
     position: absolute;
     top: 0px;
     width: 100%;
@@ -260,7 +260,7 @@ div.borders:nth-of-type(3){
     opacity: 0.6;
 }
 
-#screen{
+.screen{
     position: absolute;
     top: 0;
     width: 100%;
@@ -271,7 +271,7 @@ div.borders:nth-of-type(3){
     visibility: hidden;
 }
 
-#add_new{
+.add_new{
     width: 30vw;
     background-color: #eceaea;
     border: 3px solid #807b7b;
@@ -291,8 +291,9 @@ div.borders:nth-of-type(3){
 }
 
 .form_new img{
-    margin-top: -35px;
-    margin-left: calc(28vw);
+    position: relative;
+    left: 92%;
+    top: -30px;
     width: 25px;
     cursor: pointer;
 }

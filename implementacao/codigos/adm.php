@@ -1,3 +1,12 @@
+
+<?php
+    // if(isset($_COOKIE['adm'])){
+    //     setcookie('adm', 'cookie adm', time()+3600);
+    // } else{
+    //     echo '<script>window.location.href = "login.html";</script>';
+    // }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,20 +89,20 @@
             </div>
 
             <div class="resultados">
-
+                <!-- Código php de consulta vem aqui -->
             </div>
         </div>
 
-        <button id="add_button" onclick="insert()">
+        <button id="add_button" onclick="insertForm()">
             Adicionar novo Usuário
         </button>
 
-        <div id="back"></div>
-        <div id="screen">
-            <div id="add_new">
+        <div class="back" id="back"></div>
+        <div class="screen" id="screen">
+            <div class="add_new" id="add_new">
                 <form action="" class="form_new">
                     <h2>Inserir novo Usuário</h2>
-                    <img src="../imgs/close_button.png" alt="Fechar Inserir Usuário" onclick="closeForm()">
+                    <img src="../imgs/close_button.png" alt="Fechar Inserir Usuário" onclick="closeInsertForm()">
                     <div>
                         <label>CPF:</label>
                         <input type="number" name="cpf" requiered/>
@@ -124,21 +133,71 @@
                 </form>
             </div>
         </div>
+
+        <div class="back" id="back-1"></div>
+        <div class="screen" id="screen-1">
+            <div class="add_new" id="add_new-1">
+                <form action="" class="form_new">
+                    <h2>Usuário</h2>
+                    <img src="../imgs/close_button.png" alt="Fechar Editar Usuário" onclick="closeEditForm()">
+                    <div>
+                        <label>CPF:</label>
+                        <input type="number" name="cpf" requiered readonly/>
+                    </div>
+                    <div>
+                        <label>User:</label>
+                        <input type="text" name="user" requiered/>
+                    </div>
+                    <div>
+                        <label>Senha:</label>
+                        <input type="text" name="senha" requiered readonly/>
+                    </div>
+                    <div>
+                    <label>Tipo:</label>
+                        <select name="tipo" id="cargo">
+                            <option value="vendedor">Vendedor</option>
+                            <option value="gerente">Gerente</option>
+                            <option value="mecanico">Mecânico</option>
+                            <option value="secretario">Secretário</option>
+                            <option value="adm">Administrador</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit">
+                            Editar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
      
 
 </body>
 <script>
-    function closeForm(){
+    function closeInsertForm(){
         document.getElementById("back").style.display = "none"
         document.getElementById("screen").style.visibility = "hidden"
         document.getElementById("add_new").style.opacity = "0"
     }
 
-    function insert(){
+    function insertForm(){
         document.getElementById("back").style.display = "block"
         document.getElementById("screen").style.visibility = "visible"
         document.getElementById("add_new").style.opacity = "1"
     }
+
+    function closeEditForm(){
+        document.getElementById("back-1").style.display = "none"
+        document.getElementById("screen-1").style.visibility = "hidden"
+        document.getElementById("add_new-1").style.opacity = "0"
+    }
+
+    function editForm(){
+        document.getElementById("back-1").style.display = "block"
+        document.getElementById("screen-1").style.visibility = "visible"
+        document.getElementById("add_new-1").style.opacity = "1"
+    }
+
 </script>
 </html>
 
