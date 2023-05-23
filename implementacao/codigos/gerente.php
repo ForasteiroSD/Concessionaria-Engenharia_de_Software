@@ -77,20 +77,21 @@
             <hr>
 
             <div class="atrib_ret">
-                <h3>Nome</h3>
-                <h3>CPF</h3>
-                <h3>Cargo</h3>
+
+                <div class="column">
+                    <h3>Nome</h3>
+                </div>
+
+                <div class="column">
+                    <h3>CPF</h3>
+                </div>
+
+                <div class="column">
+                    <h3>Cargo</h3>
+                </div>
+
             </div>
 
-            <div>
-                <div class='borders'></div>
-                <div class='borders'></div>
-                <div class='borders'></div>
-            </div>
-
-            <div class="resultados">
-                <!-- Código php de consulta vem aqui -->
-            </div>
         </div>
 
         <button id="add_button" onclick="insertForm()">

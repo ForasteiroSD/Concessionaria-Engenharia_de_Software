@@ -1,10 +1,14 @@
 
 <?php
-    // if(isset($_COOKIE['adm'])){
-    //     setcookie('adm', 'cookie adm', time()+3600);
-    // } else{
-    //     echo '<script>window.location.href = "login.html";</script>';
-    // }
+    if(isset($_COOKIE['adm'])){
+        setcookie('adm', 'cookie adm', time()+3600);
+    } else{
+        echo '<script>window.location.href = "login.html";</script>';
+    }
+?>
+
+<?php
+    // Código de inserção entra aqui
 ?>
 
 <!DOCTYPE html>
@@ -76,21 +80,25 @@
             <hr>
 
             <div class="atrib_ret">
-                <h3>Nome</h3>
-                <h3>CPF</h3>
-                <h3>User</h3>
-                <h3>Tipo</h3>
+
+                <div class="column">
+                    <h3>Nome</h3>
+                </div>
+
+                <div class="column">
+                    <h3>CPF</h3>
+                </div>
+
+                <div class="column">
+                    <h3>User</h3>
+                </div>
+
+                <div class="column">
+                    <h3>Tipo</h3>
+                </div>
+
             </div>
 
-            <div>
-                <div class='borders'></div>
-                <div class='borders'></div>
-                <div class='borders'></div>
-            </div>
-
-            <div class="resultados">
-                <!-- Código php de consulta vem aqui -->
-            </div>
         </div>
 
         <button id="add_button" onclick="insertForm()">
