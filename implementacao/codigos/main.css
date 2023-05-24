@@ -245,7 +245,7 @@ div#selected h3{
 
 .icons{
     height: 25px;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
     margin-top: -3px;
     cursor: pointer;
 }
@@ -311,4 +311,8 @@ div#selected h3{
 
 .form_new button{
     margin-left: calc(50% - 50px);
+}
+
+form.remove{
+    display: none;
 }

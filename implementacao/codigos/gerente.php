@@ -209,7 +209,7 @@
         <div class="back" id="back"></div>
         <div class="screen" id="screen">
             <div class="add_new" id="add_new">
-                <form action="" class="form_new" method='post'>
+                <form action="insertfunc.php" class="form_new" method='post'>
                     <h2>Inserir novo Funcionário</h2>
                     <img src="../imgs/close_button.png" alt="Fechar Inserir Funcionário" onclick="closeInsertForm()">
                     <div>

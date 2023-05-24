@@ -68,13 +68,6 @@
 
 ?>
 
-
-
-<!-- Inserir usuário -->
-<?php
-    // Código de inserção entra aqui
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -181,7 +174,10 @@
                         <?php
                             for ($j=0; $j < $i; $j++) {
                                 echo '<img class="icons" id="data-'. $j . '" src="../imgs/edit_button.png" alt="Editar" onclick="editForm('. $j . ')">';
-                                echo '<img class="icons" id="data-'. $j . '" src="../imgs/remove_button.png" alt="Remover"><br>';
+                                echo '<img class="icons" id="data-'. $j . '" src="../imgs/remove_button.png" alt="Remover">
+                                <form action="removeuser.php" id="remove-'.$j.'" class="remove">
+                                    <input type="hidden" name="cpf-r" value='.$cpfs[$j].' />
+                                </form><br>';
                             }
                         ?>
                     </div>
@@ -198,7 +194,7 @@
         <div class="back" id="back"></div>
         <div class="screen" id="screen">
             <div class="add_new" id="add_new">
-                <form action="" class="form_new">
+                <form action="insertuser.php" class="form_new" method='post'>
                     <h2>Inserir novo Usuário</h2>
                     <img src="../imgs/close_button.png" alt="Fechar Inserir Usuário" onclick="closeInsertForm()">
                     <div>
