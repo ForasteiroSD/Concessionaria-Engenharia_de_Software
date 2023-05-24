@@ -174,9 +174,9 @@
                         <?php
                             for ($j=0; $j < $i; $j++) {
                                 echo '<img class="icons" id="data-'. $j . '" src="../imgs/edit_button.png" alt="Editar" onclick="editForm('. $j . ')">';
-                                echo '<img class="icons" id="data-'. $j . '" src="../imgs/remove_button.png" alt="Remover">
-                                <form action="removeuser.php" id="remove-'.$j.'" class="remove">
-                                    <input type="hidden" name="cpf-r" value='.$cpfs[$j].' />
+                                echo '<img class="icons" id="data-'. $j . '" src="../imgs/remove_button.png" alt="Remover" onclick="removeForm('. $j . ')">
+                                <form action="removeuser.php" id="remove-'.$j.'" class="remove" method="post">
+                                    <input type="number" name="cpf-r" value='.$cpfs[$j].' />
                                 </form><br>';
                             }
                         ?>
@@ -304,6 +304,15 @@
             tipo = 'adm'
         }
         document.getElementById("cargo-2").value = tipo;
+    }
+
+    function removeForm(j){
+        var cpf = document.getElementById("cpf-"+j).innerHTML
+        var r = confirm("Realmente deseja remover o usuário de cpf: " + cpf + "?");
+
+        if(r){
+            document.getElementById('remove-'+j).submit()
+        }
     }
 
 </script>

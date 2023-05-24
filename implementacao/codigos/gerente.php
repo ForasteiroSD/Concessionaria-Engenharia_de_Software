@@ -192,7 +192,10 @@
                         <?php
                             for ($j=0; $j < $i; $j++) {
                                 echo '<img class="icons" id="data-'. $j . '" src="../imgs/edit_button.png" alt="Editar" onclick="editForm('. $j . ')">';
-                                echo '<img class="icons" id="data-'. $j . '" src="../imgs/remove_button.png" alt="Remover"><br>';
+                                echo '<img class="icons" id="data-'. $j . '" src="../imgs/remove_button.png" alt="Remover" onclick="removeForm('. $j . ')">
+                                <form action="removefunc.php" id="remove-'.$j.'" class="remove" method="post">
+                                    <input type="number" name="cpf-r" value='.$cpfs[$j].' />
+                                </form><br>';
                             }
                         ?>
                     </div>
@@ -354,6 +357,16 @@
         var tipo = document.getElementById("cargo-"+j).innerHTML
         document.getElementById("func-edit").value = tipo;
     }
+
+    function removeForm(j){
+        var cpf = document.getElementById("cpf-"+j).innerHTML
+        var r = confirm("Realmente deseja remover o funcionário de cpf: " + cpf + "?");
+
+        if(r){
+            document.getElementById('remove-'+j).submit()
+        }
+    }
+
 </script>
 </html>
 
