@@ -37,6 +37,7 @@
                 nome varchar(100) NOT NULL,
                 cargo varchar(20) NOT NULL,
                 salario float NOT NULL,
+                telefone varchar(25),
                 PRIMARY KEY (cpf)
                 ) COLLATE=utf8_unicode_ci";
     
@@ -57,7 +58,7 @@
             }
 
             $stmt = $conn->prepare("INSERT INTO usuario (cpf, user, senha, tipo)
-            VALUES ('1', '$user', '$passwordform', 'administrador')");
+            VALUES (1, '$user', '$passwordform', 'administrador')");
             
             if(!$stmt->execute()){
                 die("Error inserting into table: " . mysqli_connect_error());
@@ -89,6 +90,7 @@
                     setcookie('gerente', 'cookie gerente', time()+3600);
                     echo '<script>window.location.href = "gerente.php"</script>';
                 }
+                
             } else{
                 mysqli_close($conn);
                 echo '<script>alert("Usuário e senha inválida")</script>';

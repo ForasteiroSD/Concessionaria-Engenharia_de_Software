@@ -235,6 +235,21 @@ div#selected h3{
     width: 190px;
 }
 
+.column .dados{
+    margin-top: 15px;
+}
+
+.dados p{
+    height: 25px;
+}
+
+.icons{
+    height: 25px;
+    margin-bottom: 22px;
+    margin-top: -3px;
+    cursor: pointer;
+}
+
 .back{
     position: fixed;
     top: 0px;

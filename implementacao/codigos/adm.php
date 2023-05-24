@@ -5,8 +5,72 @@
     } else{
         echo '<script>window.location.href = "login.html";</script>';
     }
+
+    if(isset($_POST['user'])) $user = '= "' . $_POST["user"] . '"';
+    else $user = 'IN (SELECT user FROM usuario)';
+
+    if($user == '= ""'){
+        $user = 'IN (SELECT user FROM usuario)';
+    }
+
+    if(isset($_POST['cpf'])) $cpf = '= ' . $_POST["cpf"] . '';
+    else $cpf = 'IN (SELECT cpf FROM usuario)';
+
+    if($cpf == '= '){
+        $cpf = 'IN (SELECT cpf FROM usuario)';
+    }
+
+    if(isset($_POST['tipo'])) {
+        if($_POST['tipo'] == 'adm') $_POST['tipo'] = 'administrador';
+        $tipo = '= "' . $_POST["tipo"] . '"';
+    }
+    else $tipo= 'IN (SELECT tipo FROM usuario)';
+
+
+    if($tipo == '= "todos"' or $tipo == '= ""'){
+        $tipo = 'IN (SELECT tipo FROM usuario)';
+    }
+
+    $servername = "localhost";
+    $database = "concessionaria";
+    $username = "root";
+    $password = "";
+
+    $conn = mysqli_connect($servername, $username, $password, $database);
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $sql = "SELECT * FROM usuario WHERE user $user AND cpf $cpf AND tipo $tipo ORDER BY tipo, user";
+
+    $result = $conn->query($sql);
+
+    $users = array();
+    $cpfs = array();
+    $tipos = array();
+    $senhas = array();
+
+    $j = 0;
+    $i = 0;
+    while($row = $result->fetch_assoc()){
+        $users[$i] = $row['user'];
+        $cpfs[$i] = $row['cpf'];
+        $tipos[$i] = $row['tipo'];
+        $senhas[$i] = $row['senha'];
+        $i++;
+    }
+
+    echo "<script> let senhas = []</script>";
+
+    for ($j=0; $j < $i; $j++){
+        echo "<script>senhas.push('".$senhas[$j]."')</script>";
+    }
+
 ?>
 
+
+
+<!-- Inserir usuário -->
 <?php
     // Código de inserção entra aqui
 ?>
@@ -17,6 +81,7 @@
     <meta charset='utf-8'>
     <title>Fita | Administrador</title>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src="logout.js"></script>
 </head>
 <body>
 
@@ -29,7 +94,7 @@
                 $agora = new DateTime('now', $timezone);
                 echo '<div id="date">
                         <h3>' . $agora->format("d/m") . ' | ' . $agora->format("H:i") . '</h3>
-                        <a href="./login.html"><img src="../imgs/logout_button.png" alt="Logo"></a>
+                        <img src="../imgs/logout_button.png" alt="Logo" onclick="logout()">
                       </div>'
             ?>
 
@@ -47,11 +112,7 @@
 
 
         <div class='consulta'>
-            <form class='campos'>
-                <div>
-                    <label>Nome:</label>
-                    <input type="text" name="name" />
-                </div>
+            <form class='campos' method="POST">
                 <div>
                     <label>CPF:</label>
                     <input type="number" name="cpf" />
@@ -82,19 +143,48 @@
             <div class="atrib_ret">
 
                 <div class="column">
-                    <h3>Nome</h3>
-                </div>
-
-                <div class="column">
                     <h3>CPF</h3>
+                    <div class='dados'>
+                        <?php
+                            for ($j=0; $j < $i; $j++) { 
+                                echo "<p id='cpf-". $j . "'>". $cpfs[$j] . "</p><br>";
+                            }
+                        ?>
+                    </div>
                 </div>
 
                 <div class="column">
                     <h3>User</h3>
+                    <div class='dados'>
+                        <?php
+                            for ($j=0; $j < $i; $j++) { 
+                                echo "<p id='user-". $j . "'>". $users[$j] . "</p><br>";
+                            }
+                        ?>
+                    </div>
                 </div>
 
                 <div class="column">
                     <h3>Tipo</h3>
+                    <div class='dados'>
+                        <?php
+                            for ($j=0; $j < $i; $j++) {
+                                echo "<p id='tipo-". $j . "'>". $tipos[$j] . "</p><br>";
+                            }
+                        ?>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <h3>Ação</h3>
+                    <div class='dados'>
+                        <?php
+                            for ($j=0; $j < $i; $j++) {
+                                echo '<img class="icons" id="data-'. $j . '" src="../imgs/edit_button.png" alt="Editar" onclick="editForm('. $j . ')">';
+                                echo '<img class="icons" id="data-'. $j . '" src="../imgs/remove_button.png" alt="Remover"><br>';
+                            }
+                        ?>
+                    </div>
                 </div>
 
             </div>
@@ -125,7 +215,7 @@
                     </div>
                     <div>
                     <label>Tipo:</label>
-                        <select name="tipo" id="cargo">
+                        <select name="tipo" id="cargo-1">
                             <option value="vendedor">Vendedor</option>
                             <option value="gerente">Gerente</option>
                             <option value="mecanico">Mecânico</option>
@@ -144,25 +234,25 @@
 
         <div class="back" id="back-1"></div>
         <div class="screen" id="screen-1">
-            <div class="add_new" id="add_new-1">
-                <form action="" class="form_new">
+            <div class="add_new" id="edit">
+                <form action="edituser.php" class="form_new" method='post'>
                     <h2>Usuário</h2>
                     <img src="../imgs/close_button.png" alt="Fechar Editar Usuário" onclick="closeEditForm()">
                     <div>
                         <label>CPF:</label>
-                        <input type="number" name="cpf" requiered readonly/>
+                        <input type="number" name="cpf" requiered readonly id="cpf"/>
                     </div>
                     <div>
                         <label>User:</label>
-                        <input type="text" name="user" requiered/>
+                        <input type="text" name="user" requiered id="user"/>
                     </div>
                     <div>
                         <label>Senha:</label>
-                        <input type="text" name="senha" requiered readonly/>
+                        <input type="text" name="senha" requiered readonly id="senha"/>
                     </div>
                     <div>
                     <label>Tipo:</label>
-                        <select name="tipo" id="cargo">
+                        <select name="tipo" id="cargo-2">
                             <option value="vendedor">Vendedor</option>
                             <option value="gerente">Gerente</option>
                             <option value="mecanico">Mecânico</option>
@@ -197,16 +287,28 @@
     function closeEditForm(){
         document.getElementById("back-1").style.display = "none"
         document.getElementById("screen-1").style.visibility = "hidden"
-        document.getElementById("add_new-1").style.opacity = "0"
+        document.getElementById("edit").style.opacity = "0"
     }
 
-    function editForm(){
+    function editForm(j){
         document.getElementById("back-1").style.display = "block"
         document.getElementById("screen-1").style.visibility = "visible"
-        document.getElementById("add_new-1").style.opacity = "1"
+        document.getElementById("edit").style.opacity = "1"
+
+        var cpf = document.getElementById("cpf-"+j).innerHTML
+        document.getElementById("cpf").value = cpf;
+
+        var user = document.getElementById("user-"+j).innerHTML
+        document.getElementById("user").value = user;
+
+        document.getElementById("senha").value = senhas[j];
+
+        var tipo = document.getElementById("tipo-"+j).innerHTML
+        if(tipo == 'administrador'){
+            tipo = 'adm'
+        }
+        document.getElementById("cargo-2").value = tipo;
     }
 
 </script>
 </html>
-
-    
