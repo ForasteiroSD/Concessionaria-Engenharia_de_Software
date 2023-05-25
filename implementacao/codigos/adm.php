@@ -199,15 +199,15 @@
                     <img src="../imgs/close_button.png" alt="Fechar Inserir Usuário" onclick="closeInsertForm()">
                     <div>
                         <label>CPF:</label>
-                        <input type="number" name="cpf" requiered/>
+                        <input type="number" name="cpf" required/>
                     </div>
                     <div>
                         <label>User:</label>
-                        <input type="text" name="user" requiered/>
+                        <input type="text" name="user" required/>
                     </div>
                     <div>
                         <label>Senha:</label>
-                        <input type="text" name="senha" requiered/>
+                        <input type="text" name="senha" required/>
                     </div>
                     <div>
                     <label>Tipo:</label>
@@ -236,15 +236,15 @@
                     <img src="../imgs/close_button.png" alt="Fechar Editar Usuário" onclick="closeEditForm()">
                     <div>
                         <label>CPF:</label>
-                        <input type="number" name="cpf" requiered readonly id="cpf"/>
+                        <input type="number" name="cpf" required readonly id="cpf"/>
                     </div>
                     <div>
                         <label>User:</label>
-                        <input type="text" name="user" requiered id="user"/>
+                        <input type="text" name="user" required id="user"/>
                     </div>
                     <div>
                         <label>Senha:</label>
-                        <input type="text" name="senha" requiered readonly id="senha"/>
+                        <input type="text" name="senha" required readonly id="senha"/>
                     </div>
                     <div>
                     <label>Tipo:</label>

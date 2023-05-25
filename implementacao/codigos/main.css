@@ -184,9 +184,10 @@ div#selected h3{
     width: 850px;
     height: 600px;
     border: 1px solid rgb(133, 130, 130);
-    margin-left: 18.8875vw;
+    margin-left: calc(50vw - 425px);
     margin-top: 100px;
-}    
+}
+ 
 .consulta .campos{
     display: flex;
     justify-content: space-between;
@@ -208,7 +209,7 @@ div#selected h3{
 
 #add_button{
     width: 250px;
-    margin-left: 18.8875vw;
+    margin-left: calc(50vw - 125px);
     margin-top: 15px;
     padding: 5px;
     font-size: 14px;
@@ -315,4 +316,16 @@ div#selected h3{
 
 form.remove{
     display: none;
+}
+
+@media (max-width: 850px) {
+
+    .consulta{
+        margin-left: 18.8875vw;
+    }
+
+    #add_button{
+        margin-left: 18.8875vw;
+    }
+
 }

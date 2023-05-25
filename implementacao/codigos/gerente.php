@@ -217,23 +217,23 @@
                     <img src="../imgs/close_button.png" alt="Fechar Inserir Funcionário" onclick="closeInsertForm()">
                     <div>
                         <label>Nome:</label>
-                        <input type="text" name="name-a" requiered/>
+                        <input type="text" name="name-a" required/>
                     </div>
                     <div>
                         <label>CPF:</label>
-                        <input type="number" name="cpf-a" requiered/>
+                        <input type="number" name="cpf-a" required/>
                     </div>
                     <div>
                         <label>Data de nascimento:</label>
-                        <input type="date" name="data-a" requiered/>
+                        <input type="date" name="data-a" required/>
                     </div>
                     <div>
                         <label>Telefone:</label>
-                        <input type="text" name="telefone-a" placeholder="(XX) XXXXXXXXX" requiered/>
+                        <input type="text" name="telefone-a" placeholder="(XX) XXXXXXXXX" required/>
                     </div>
                     <div>
                         <label>Salário:</label>
-                        <input type="number" name="salario-a" requiered/>
+                        <input type="number" name="salario-a" required/>
                     </div>
                     <div>
                         <label>Data de Contratação:</label>
@@ -243,7 +243,7 @@
                                     $agora = new DateTime('now', $timezone); 
                                     echo $agora->format('Y-m-d'); 
                                 ?>"
-                        requiered/>
+                        required/>
                     </div>
                     <div>
                     <label>Cargo:</label>
@@ -272,7 +272,7 @@
                     <img src="../imgs/close_button.png" alt="Fechar Editar Usuário" onclick="closeEditForm()">
                     <div>
                         <label>Nome:</label>
-                        <input type="text" name="name-e" requiered id='nome'/>
+                        <input type="text" name="name-e" required id='nome'/>
                     </div>
                     <div>
                         <label>CPF:</label>
@@ -284,11 +284,11 @@
                     </div>
                     <div>
                         <label>Telefone:</label>
-                        <input type="text" name="telefone-e" placeholder="(XX) XXXXXXXXX" requiered id='tel'/>
+                        <input type="text" name="telefone-e" placeholder="(XX) XXXXXXXXX" required id='tel'/>
                     </div>
                     <div>
                         <label>Salário:</label>
-                        <input type="number" name="salario-e" requiered id='sal'/>
+                        <input type="number" name="salario-e" required id='sal'/>
                     </div>
                     <div>
                         <label>Data de Contratação:</label>
