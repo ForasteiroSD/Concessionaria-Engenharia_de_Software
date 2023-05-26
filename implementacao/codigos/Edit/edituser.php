@@ -1,7 +1,8 @@
 <?php
 
     if(!(isset($_POST['cpf']) and isset($_POST['user']) and isset($_POST['senha']) and isset($_POST['tipo']))){
-        echo '<script>window.location.href = "login.php"</script>';
+        echo '<script>window.location.href = "../login.html"</script>';
+        exit;
     }
 
     $cpf = $_POST['cpf'];
@@ -10,9 +11,8 @@
     $tipo = $_POST['tipo'];
 
     if($tipo == 'adm'){
-        $tipo = 'administrador';
+        $tipo = 'Administrador';
     }
-    
 
     $servername = "localhost";
     $database = "concessionaria";
@@ -25,7 +25,7 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    $sql = "UPDATE usuario SET user = '$user', tipo = '$tipo' WHERE cpf = $cpf";
+    $sql = "UPDATE usuario SET tipo = '$tipo' WHERE cpf = $cpf";
 
     if (!mysqli_query($conn, $sql)) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -33,7 +33,6 @@
 
     mysqli_close($conn);
 
-    echo '<script>window.location.href = "adm.php"</script>';
-
+    echo '<script>window.location.href = "../Pages/adm.php"</script>';
 
 ?>

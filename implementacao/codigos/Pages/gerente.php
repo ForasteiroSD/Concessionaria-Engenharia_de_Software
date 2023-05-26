@@ -1,32 +1,35 @@
 
 <?php
     if(isset($_COOKIE['gerente'])){
-        setcookie('gerente', 'cookie gerente', time()+3600);
+        setcookie('gerente', 'cookie gerente', time()+3600, '/');
     } else{
-        echo '<script>window.location.href = "login.html";</script>';
+        echo '<script>window.location.href = "../login.html";</script>';
     }
 
     if(isset($_POST['name-c'])) $name = '= "' . $_POST["name-c"] . '"';
-    else $name = 'IN (SELECT nome FROM funcionarios)';
+    else $name = 'IN (SELECT nome FROM funcionario)';
 
     if($name == '= ""'){
-        $name = 'IN (SELECT nome FROM funcionarios)';
+        $name = 'IN (SELECT nome FROM funcionario)';
     }
 
     if(isset($_POST['cpf-c'])) $cpf = '= ' . $_POST["cpf-c"] . '';
-    else $cpf = 'IN (SELECT cpf FROM funcionarios)';
+    else $cpf = 'IN (SELECT cpf FROM funcionario)';
 
     if($cpf == '= '){
-        $cpf = 'IN (SELECT cpf FROM funcionarios)';
+        $cpf = 'IN (SELECT cpf FROM funcionario)';
     }
 
     if(isset($_POST['cargo-c'])) $cargo = '= "' . $_POST["cargo-c"] . '"';
-    else $cargo= 'IN (SELECT cargo FROM funcionarios)';
+    else $cargo= 'IN (SELECT cargo FROM funcionario)';
 
 
     if($cargo == '= "todos"' or $cargo == '= ""'){
-        $cargo = 'IN (SELECT cargo FROM funcionarios)';
+        $cargo = 'IN (SELECT cargo FROM funcionario)';
     }
+
+    if(isset($_POST['ativo'])) $ativo = 'AND ativo = 0';
+    else $ativo= 'AND ativo = 1';
 
     $servername = "localhost";
     $database = "concessionaria";
@@ -38,9 +41,11 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    $sql = "SELECT * FROM funcionarios WHERE nome $name AND cpf $cpf AND cargo $cargo ORDER BY cargo, nome";
+    $sql = "SELECT * FROM funcionario WHERE nome $name AND cpf $cpf AND cargo $cargo $ativo ORDER BY cargo, nome";
 
-    $result = $conn->query($sql);
+    if(!$result = $conn->query($sql)){
+        echo 'aaaaaaaa';
+    }
 
     $nomes = array();
     $cpfs = array();
@@ -68,6 +73,7 @@
     let datas = []
     let contratacoes = []
     let telefones = []
+    let cpfs = []
     </script>";
 
     for ($j=0; $j < $i; $j++){
@@ -76,8 +82,11 @@
         datas.push('".$datas[$j]."');
         contratacoes.push('".$contratacoes[$j]."');
         telefones.push('".$telefones[$j]."');
+        cpfs.push(".$cpfs[$j].")
         </script>";
     }
+
+    mysqli_close($conn);
 
 ?>
 
@@ -86,21 +95,21 @@
 <head>
     <meta charset='utf-8'>
     <title>Fita | Gerente</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src="logout.js"></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='../Style/main.css'>
+    <script src="../Services/logout.js"></script>
 </head>
 <body>
 
         <header>
             
-            <div id='image'><img src="../imgs/fita_logo.png" alt="Logo"></div>
+            <div id='image'><img src="../../imgs/fita_logo.png" alt="Logo"></div>
             <h2>Funcionários</h2>
             <?php
                 $timezone = new DateTimeZone('America/Sao_Paulo');
                 $agora = new DateTime('now', $timezone);
                 echo '<div id="date">
                         <h3>' . $agora->format("d/m") . ' | ' . $agora->format("H:i") . '</h3>
-                        <img src="../imgs/logout_button.png" alt="Logo" onclick="logout()">
+                        <img src="../../imgs/logout_button.png" alt="Logo" onclick="logout()">
                       </div>'
             ?>
 
@@ -136,12 +145,16 @@
                 <label>Cargo:</label>
                     <select name="cargo-c" id="cargo">
                         <option value="todos">Todos</option>
-                        <option value="vendedor">Vendedor</option>
-                        <option value="gerente">Gerente</option>
-                        <option value="faxineiro">Faxineiro</option>
-                        <option value="mecanico">Mecânico</option>
-                        <option value="secretario">Secretário</option>
+                        <option value="Vendedor">Vendedor</option>
+                        <option value="Gerente">Gerente</option>
+                        <option value="Faxineiro">Faxineiro</option>
+                        <option value="Mecânico">Mecânico</option>
+                        <option value="Secretário">Secretário</option>
                     </select>
+                </div>
+                <div>
+                    <label>Des.:</label>
+                    <input type="checkbox" id="check" name="ativo" value="1">
                 </div>
                 <div>
                     <button type="submit">
@@ -191,11 +204,19 @@
                     <div class='dados'>
                         <?php
                             for ($j=0; $j < $i; $j++) {
-                                echo '<img class="icons" id="data-'. $j . '" src="../imgs/edit_button.png" alt="Editar" onclick="editForm('. $j . ')">';
-                                echo '<img class="icons" id="data-'. $j . '" src="../imgs/remove_button.png" alt="Remover" onclick="removeForm('. $j . ')">
-                                <form action="removefunc.php" id="remove-'.$j.'" class="remove" method="post">
-                                    <input type="number" name="cpf-r" value='.$cpfs[$j].' />
-                                </form><br>';
+                                echo '<img class="icons" id="data-'. $j . '" src="../../imgs/edit_button.png" alt="Editar" onclick="editForm('. $j . ')">';
+                                if(isset($_POST['ativo'])){
+                                    echo '<img class="icons" id="data-'. $j . '" src="../../imgs/add_button.png" alt="Adicionar" onclick="removeForm('. $j . ')">
+                                    <form action="../Remove/removefunc.php" id="remove-'.$j.'" class="remove" method="post">
+                                        <input type="number" name="cpf-a" value='.$cpfs[$j].' />
+                                    </form><br>';
+                                } else {
+                                    echo '<img class="icons" id="data-'. $j . '" src="../../imgs/remove_button.png" alt="Remover" onclick="removeForm('. $j . ')">
+                                    <form action="../Remove/removefunc.php" id="remove-'.$j.'" class="remove" method="post">
+                                        <input type="number" name="cpf-r" value='.$cpfs[$j].' />
+                                    </form><br>';
+                                }
+                                echo '';
                             }
                         ?>
                     </div>
@@ -212,9 +233,9 @@
         <div class="back" id="back"></div>
         <div class="screen" id="screen">
             <div class="add_new" id="add_new">
-                <form action="insertfunc.php" class="form_new" method='post'>
+                <form action="../Insert/insertfunc.php" class="form_new" method='post'>
                     <h2>Inserir novo Funcionário</h2>
-                    <img src="../imgs/close_button.png" alt="Fechar Inserir Funcionário" onclick="closeInsertForm()">
+                    <img src="../../imgs/close_button.png" alt="Fechar Inserir Funcionário" onclick="closeInsertForm()">
                     <div>
                         <label>Nome:</label>
                         <input type="text" name="name-a" required/>
@@ -248,11 +269,11 @@
                     <div>
                     <label>Cargo:</label>
                         <select name="cargo-a" id="cargo">
-                            <option value="vendedor">Vendedor</option>
-                            <option value="gerente">Gerente</option>
-                            <option value="faxineiro">Faxineiro</option>
-                            <option value="mecanico">Mecânico</option>
-                            <option value="secretario">Secretário</option>
+                            <option value="Vendedor">Vendedor</option>
+                            <option value="Gerente">Gerente</option>
+                            <option value="Faxineiro">Faxineiro</option>
+                            <option value="Mecânico">Mecânico</option>
+                            <option value="Secretário">Secretário</option>
                         </select>
                     </div>
                     <div>
@@ -267,9 +288,9 @@
         <div class="back" id="back-1"></div>
         <div class="screen" id="screen-1">
             <div class="add_new" id="edit">
-                <form action="editfunc.php" class="form_new" method='post'>
+                <form action="../Edit/editfunc.php" class="form_new" method='post'>
                     <h2>Funcionário</h2>
-                    <img src="../imgs/close_button.png" alt="Fechar Editar Usuário" onclick="closeEditForm()">
+                    <img src="../../imgs/close_button.png" alt="Fechar Editar Usuário" onclick="closeEditForm()">
                     <div>
                         <label>Nome:</label>
                         <input type="text" name="name-e" required id='nome'/>
@@ -297,11 +318,11 @@
                     <div>
                     <label>Cargo:</label>
                         <select name="cargo-e" id="func-edit">
-                            <option value="vendedor">Vendedor</option>
-                            <option value="gerente">Gerente</option>
-                            <option value="faxineiro">Faxineiro</option>
-                            <option value="mecanico">Mecânico</option>
-                            <option value="secretario">Secretário</option>
+                            <option value="Vendedor">Vendedor</option>
+                            <option value="Gerente">Gerente</option>
+                            <option value="Faxineiro">Faxineiro</option>
+                            <option value="Mecânico">Mecânico</option>
+                            <option value="Secretário">Secretário</option>
                         </select>
                     </div>
                     <div>
@@ -310,6 +331,24 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div class="back" id="back-2"></div>
+        <div class="screen" id="screen-2">
+            <div class="add_new" id="remove">
+                <div class='form_new'>
+                    <h2>Funcionário</h2>
+                    <h4 id='question'></h4>
+                </div>
+                <div class="remover_cancelar">
+                    <button onclick="remover()">
+                        Sim
+                    </button>
+                    <button onclick="closeRemoveForm()">
+                        Cancelar
+                    </button>
+                </div>  
             </div>
         </div>
         
@@ -359,12 +398,28 @@
     }
 
     function removeForm(j){
-        var cpf = document.getElementById("cpf-"+j).innerHTML
-        var r = confirm("Realmente deseja remover o funcionário de cpf: " + cpf + "?");
+        document.getElementById("back-2").style.display = "block"
+        document.getElementById("screen-2").style.visibility = "visible"
+        document.getElementById("remove").style.opacity = "1"
 
-        if(r){
-            document.getElementById('remove-'+j).submit()
-        }
+        var cpf = document.getElementById("cpf-"+j).innerHTML
+        document.getElementById('question').innerHTML = 'Realmente deseja Desativar/Ativar o funcionário de CPF: ' + cpf + '?'
+
+    }
+
+    function remover(){
+        string = document.getElementById('question').innerHTML
+        string = string.split(":")
+        string = string[1].split("?")
+        string = string[0].split(" ")
+        pos = cpfs.indexOf(Number(string[1]))
+        document.getElementById('remove-'+pos).submit()
+    }
+
+    function closeRemoveForm(){
+        document.getElementById("back-2").style.display = "none"
+        document.getElementById("screen-2").style.visibility = "hidden"
+        document.getElementById("remove").style.opacity = "0"
     }
 
 </script>

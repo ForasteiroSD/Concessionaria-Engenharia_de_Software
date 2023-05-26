@@ -2,7 +2,8 @@
 
     if(!(isset($_POST['cpf-a']) and isset($_POST['name-a']) and isset($_POST['data-a']) and isset($_POST['telefone-a'])
     and isset($_POST['salario-a']) and isset($_POST['contratacao-a']) and isset($_POST['cargo-a']))){
-        echo '<script>window.location.href = "login.html"</script>';
+        echo '<script>window.location.href = "../login.html"</script>';
+        exit;
     }
 
     $servername = "localhost";
@@ -19,6 +20,12 @@
     $cont = $_POST['contratacao-a'];
     $cargo = $_POST['cargo-a'];
 
+    if($cpf < 10000000000){
+        echo"<script>alert('O cpf ".$cpf." é inválido')</script>";
+        echo '<script>window.location.href = "../Pages/gerente.php"</script>';
+        exit;
+    }
+
     // Criar conexão com o banco de dados
     $conn = new mysqli($servername, $username, $password, $database);
 
@@ -28,16 +35,17 @@
     }
 
     // Preparar e executar a consulta SQL para inserir o funcionário
-    $sql = "INSERT INTO funcionarios (cpf, data_nasc, contratacao, nome, cargo, salario, telefone) 
-    VALUES ($cpf, '$nasc', '$cont', '$nome', '$cargo', $sal, '$tel')";
+    $sql = "INSERT INTO funcionario (cpf, data_nasc, contratacao, nome, cargo, salario, telefone, ativo) 
+    VALUES ($cpf, '$nasc', '$cont', '$nome', '$cargo', $sal, '$tel', 1)";
 
-    if ($conn->query($sql) === TRUE) {
-        echo '<script>window.location.href = "gerente.php"</script>';
-    } else {
+    if (!($conn->query($sql))) {
         echo "Erro ao inserir funcionário: " . $conn->error;
     }
 
     // Fechar a conexão com o banco de dados
     $conn->close();
+
+    echo '<script>window.location.href = "../Pages/gerente.php"</script>';
+
 
 ?>

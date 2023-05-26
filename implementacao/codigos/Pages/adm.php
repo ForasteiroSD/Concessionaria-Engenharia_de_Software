@@ -1,9 +1,9 @@
 
 <?php
     if(isset($_COOKIE['adm'])){
-        setcookie('adm', 'cookie adm', time()+3600);
+        setcookie('adm', 'cookie adm', time()+3600, '/');
     } else{
-        echo '<script>window.location.href = "login.html";</script>';
+        echo '<script>window.location.href = "../login.html";</script>';
     }
 
     if(isset($_POST['user'])) $user = '= "' . $_POST["user"] . '"';
@@ -21,7 +21,7 @@
     }
 
     if(isset($_POST['tipo'])) {
-        if($_POST['tipo'] == 'adm') $_POST['tipo'] = 'administrador';
+        if($_POST['tipo'] == 'adm') $_POST['tipo'] = 'Administrador';
         $tipo = '= "' . $_POST["tipo"] . '"';
     }
     else $tipo= 'IN (SELECT tipo FROM usuario)';
@@ -60,11 +60,19 @@
         $i++;
     }
 
-    echo "<script> let senhas = []</script>";
+    echo "<script>
+    let senhas = []
+    let cpfs = []
+    </script>";
 
     for ($j=0; $j < $i; $j++){
-        echo "<script>senhas.push('".$senhas[$j]."')</script>";
+        echo "<script>
+            senhas.push('".$senhas[$j]."')
+            cpfs.push(".$cpfs[$j].")
+        </script>";
     }
+
+    mysqli_close($conn);
 
 ?>
 
@@ -73,21 +81,21 @@
 <head>
     <meta charset='utf-8'>
     <title>Fita | Administrador</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src="logout.js"></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='../Style/main.css'>
+    <script src="../Services/logout.js"></script>
 </head>
 <body>
 
         <header>
             
-            <div id='image'><img src="../imgs/fita_logo.png" alt="Logo"></div>
+            <div id='image'><img src="../../imgs/fita_logo.png" alt="Logo"></div>
             <h2>Usuários</h2>
             <?php
                 $timezone = new DateTimeZone('America/Sao_Paulo');
                 $agora = new DateTime('now', $timezone);
                 echo '<div id="date">
                         <h3>' . $agora->format("d/m") . ' | ' . $agora->format("H:i") . '</h3>
-                        <img src="../imgs/logout_button.png" alt="Logo" onclick="logout()">
+                        <img src="../../imgs/logout_button.png" alt="Logo" onclick="logout()">
                       </div>'
             ?>
 
@@ -115,13 +123,13 @@
                     <input type="text" name="user" />
                 </div>
                 <div>
-                <label>Tipo:</label>
+                    <label>Tipo:</label>
                     <select name="tipo" id="cargo">
                         <option value="todos">Todos</option>
-                        <option value="vendedor">Vendedor</option>
-                        <option value="gerente">Gerente</option>
-                        <option value="mecanico">Mecânico</option>
-                        <option value="secretario">Secretário</option>
+                        <option value="Vendedor">Vendedor</option>
+                        <option value="Gerente">Gerente</option>
+                        <option value="Mecânico">Mecânico</option>
+                        <option value="Secretário">Secretário</option>
                         <option value="adm">Administrador</option>
                     </select>
                 </div>
@@ -173,9 +181,9 @@
                     <div class='dados'>
                         <?php
                             for ($j=0; $j < $i; $j++) {
-                                echo '<img class="icons" id="data-'. $j . '" src="../imgs/edit_button.png" alt="Editar" onclick="editForm('. $j . ')">';
-                                echo '<img class="icons" id="data-'. $j . '" src="../imgs/remove_button.png" alt="Remover" onclick="removeForm('. $j . ')">
-                                <form action="removeuser.php" id="remove-'.$j.'" class="remove" method="post">
+                                echo '<img class="icons" id="data-'. $j . '" src="../../imgs/edit_button.png" alt="Editar" onclick="editForm('. $j . ')">';
+                                echo '<img class="icons" id="data-'. $j . '" src="../../imgs/remove_button.png" alt="Remover" onclick="removeForm('. $j . ')">
+                                <form action="../Remove/removeuser.php" id="remove-'.$j.'" class="remove" method="post">
                                     <input type="number" name="cpf-r" value='.$cpfs[$j].' />
                                 </form><br>';
                             }
@@ -194,9 +202,9 @@
         <div class="back" id="back"></div>
         <div class="screen" id="screen">
             <div class="add_new" id="add_new">
-                <form action="insertuser.php" class="form_new" method='post'>
+                <form action="../Insert/insertuser.php" class="form_new" method='post'>
                     <h2>Inserir novo Usuário</h2>
-                    <img src="../imgs/close_button.png" alt="Fechar Inserir Usuário" onclick="closeInsertForm()">
+                    <img src="../../imgs/close_button.png" alt="Fechar Inserir Usuário" onclick="closeInsertForm()">
                     <div>
                         <label>CPF:</label>
                         <input type="number" name="cpf" required/>
@@ -212,10 +220,10 @@
                     <div>
                     <label>Tipo:</label>
                         <select name="tipo" id="cargo-1">
-                            <option value="vendedor">Vendedor</option>
-                            <option value="gerente">Gerente</option>
-                            <option value="mecanico">Mecânico</option>
-                            <option value="secretario">Secretário</option>
+                            <option value="Vendedor">Vendedor</option>
+                            <option value="Gerente">Gerente</option>
+                            <option value="Mecânico">Mecânico</option>
+                            <option value="Secretário">Secretário</option>
                             <option value="adm">Administrador</option>
                         </select>
                     </div>
@@ -231,16 +239,16 @@
         <div class="back" id="back-1"></div>
         <div class="screen" id="screen-1">
             <div class="add_new" id="edit">
-                <form action="edituser.php" class="form_new" method='post'>
+                <form action="../Edit/edituser.php" class="form_new" method='post'>
                     <h2>Usuário</h2>
-                    <img src="../imgs/close_button.png" alt="Fechar Editar Usuário" onclick="closeEditForm()">
+                    <img src="../../imgs/close_button.png" alt="Fechar Editar Usuário" onclick="closeEditForm()">
                     <div>
                         <label>CPF:</label>
                         <input type="number" name="cpf" required readonly id="cpf"/>
                     </div>
                     <div>
                         <label>User:</label>
-                        <input type="text" name="user" required id="user"/>
+                        <input type="text" name="user" required readonly id="user"/>
                     </div>
                     <div>
                         <label>Senha:</label>
@@ -249,10 +257,10 @@
                     <div>
                     <label>Tipo:</label>
                         <select name="tipo" id="cargo-2">
-                            <option value="vendedor">Vendedor</option>
-                            <option value="gerente">Gerente</option>
-                            <option value="mecanico">Mecânico</option>
-                            <option value="secretario">Secretário</option>
+                            <option value="Vendedor">Vendedor</option>
+                            <option value="Gerente">Gerente</option>
+                            <option value="Mecânico">Mecânico</option>
+                            <option value="Secretário">Secretário</option>
                             <option value="adm">Administrador</option>
                         </select>
                     </div>
@@ -262,6 +270,24 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div class="back" id="back-2"></div>
+        <div class="screen" id="screen-2">
+            <div class="add_new" id="remove">
+                <div class='form_new'>
+                    <h2>Funcionário</h2>
+                    <h4 id='question'></h4>
+                </div>
+                <div class="remover_cancelar">
+                    <button onclick="remover()">
+                        Sim
+                    </button>
+                    <button onclick="closeRemoveForm()">
+                        Cancelar
+                    </button>
+                </div>  
             </div>
         </div>
      
@@ -300,19 +326,35 @@
         document.getElementById("senha").value = senhas[j];
 
         var tipo = document.getElementById("tipo-"+j).innerHTML
-        if(tipo == 'administrador'){
+        if(tipo == 'Administrador'){
             tipo = 'adm'
         }
         document.getElementById("cargo-2").value = tipo;
     }
 
     function removeForm(j){
-        var cpf = document.getElementById("cpf-"+j).innerHTML
-        var r = confirm("Realmente deseja remover o usuário de cpf: " + cpf + "?");
+        document.getElementById("back-2").style.display = "block"
+        document.getElementById("screen-2").style.visibility = "visible"
+        document.getElementById("remove").style.opacity = "1"
 
-        if(r){
-            document.getElementById('remove-'+j).submit()
-        }
+        var cpf = document.getElementById("cpf-"+j).innerHTML
+        document.getElementById('question').innerHTML = 'Realmente deseja remover o usuário de CPF: ' + cpf + '?'
+
+    }
+
+    function remover(){
+        string = document.getElementById('question').innerHTML
+        string = string.split(":")
+        string = string[1].split("?")
+        string = string[0].split(" ")
+        pos = cpfs.indexOf(Number(string[1]))
+        document.getElementById('remove-'+pos).submit()
+    }
+
+    function closeRemoveForm(){
+        document.getElementById("back-2").style.display = "none"
+        document.getElementById("screen-2").style.visibility = "hidden"
+        document.getElementById("remove").style.opacity = "0"
     }
 
 </script>

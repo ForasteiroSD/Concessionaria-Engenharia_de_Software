@@ -1,16 +1,9 @@
 <?php
 
-    if(!(isset($_POST["cpf-r"]))){
-        echo '<script>window.location.href = "login.html"</script>';
-    }
-
     $servername = "localhost";
     $database = "concessionaria";
     $username = "root";
     $password = "";
-
-    // Dados do usuário a ser inserido
-    $cpf = $_POST["cpf-r"];
 
     // Criar conexão com o banco de dados
     $conn = new mysqli($servername, $username, $password, $database);
@@ -20,13 +13,16 @@
         die("Erro na conexão com o banco de dados: " . $conn->connect_error);
     }
 
+    $i = 0;
     // Preparar e executar a consulta SQL para inserir o usuário
-    $sql = "DELETE FROM funcionarios WHERE cpf = $cpf";
+    for($i = 5; $i<20; $i++){
+        $sql = "INSERT INTO usuario (cpf, user, senha, tipo) VALUES (".$i.", 'abc', '123', 'gerente')";
 
-    if ($conn->query($sql) === TRUE) {
-        echo '<script>window.location.href = "gerente.php"</script>';
-    } else {
-        echo "Erro ao remover usuário: " . $conn->error;
+        if ($conn->query($sql) === TRUE) {
+            // echo '<script>window.location.href = "adm.php"</script>';
+        } else {
+            echo "Erro ao inserir usuário: " . $conn->error;
+        }
     }
 
     // Fechar a conexão com o banco de dados

@@ -1,6 +1,6 @@
 @font-face {
     font-family: Jura;
-    src: url(../fonts/Jura.ttf);
+    src: url(../../fonts/Jura.ttf);
 }
 
 *{
@@ -207,6 +207,12 @@ div#selected h3{
     background-color: #F9F9F9;
 }
 
+.campos div #check{
+    width: 15px;
+    margin-top: 7px;
+    margin-left: 5px;
+}
+
 #add_button{
     width: 250px;
     margin-left: calc(50vw - 125px);
@@ -286,9 +292,13 @@ div#selected h3{
     flex-direction: column;
 }
 
-.form_new h2{
+.form_new h2, .form_new h4{
     text-align: center;
     margin-top: 20px;
+}
+
+.form_new h4{
+    line-height: 25px;
 }
 
 .form_new img{
@@ -312,6 +322,14 @@ div#selected h3{
 
 .form_new button{
     margin-left: calc(50% - 50px);
+}
+
+.remover_cancelar{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    gap: 15px;
 }
 
 form.remove{

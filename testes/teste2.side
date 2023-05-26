@@ -2,12 +2,12 @@
   "id": "6b14401f-3f9c-421e-a9f6-712922154808",
   "version": "2.0",
   "name": "teste2",
-  "url": "http://localhost/implementacao/codigos/adm.php",
+  "url": "http://localhost/implementacao/codigos/login.html",
   "tests": [{
     "id": "34a06221-d1e6-4760-8717-574b527dffe9",
     "name": "2-Usuário",
     "commands": [{
-      "id": "e4c53fca-b28c-488b-a614-a19660f3ffb4",
+      "id": "9cbe09c8-f0f8-45b5-82b6-13a1487bc7ef",
       "comment": "",
       "command": "open",
       "target": "http://localhost/implementacao/codigos/login.html",
@@ -606,7 +606,7 @@
     "id": "c2ece229-45ae-4719-9731-0842c5237298",
     "name": "3-Cria usuário gerente",
     "commands": [{
-      "id": "f2aa75e3-b426-4497-ac35-246e384762b5",
+      "id": "b64e187d-9b63-4b02-b6a0-364212d02ed2",
       "comment": "",
       "command": "open",
       "target": "http://localhost/implementacao/codigos/login.html",
@@ -876,13 +876,6 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Login')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "500c6d71-e380-400f-a53e-c6d25532dfa9",
-      "comment": "",
-      "command": "open",
-      "target": "http://localhost/implementacao/codigos/gerente.php",
-      "targets": [],
       "value": ""
     }, {
       "id": "5cb0297b-75a7-4771-9b16-68056013e320",
@@ -1274,7 +1267,7 @@
     "id": "9be2c874-fd0b-419b-8858-fd793afc5b84",
     "name": "1-Login",
     "commands": [{
-      "id": "362f1b9b-b483-4961-96f9-a431404480a9",
+      "id": "2943fb86-c133-4040-8e80-376855d34ebd",
       "comment": "",
       "command": "open",
       "target": "http://localhost/implementacao/codigos/login.html",

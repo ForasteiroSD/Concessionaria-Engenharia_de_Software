@@ -3,7 +3,7 @@
     mysqli_report(MYSQLI_REPORT_OFF);
 
     if(!(isset($_POST['user']) and isset($_POST['password']))){
-        echo '<script>window.location.href = "login.html"</script>';
+        echo '<script>window.location.href = "../login.html"</script>';
     }
 
     $user = $_POST['user'];
@@ -24,20 +24,21 @@
 
     if($selected = mysqli_select_db($conn, $database)){
 
-        $table = 'funcionarios';
+        $table = 'funcionario';
         $result = mysqli_query($conn, "SHOW TABLES LIKE '$table'");
         $tableExists = $result && $result->num_rows > 0;
 
         if(!$tableExists){
 
-            $sql = "CREATE TABLE funcionarios(
-                cpf INT UNSIGNED NOT NULL,
+            $sql = "CREATE TABLE funcionario(
+                cpf BIGINT UNSIGNED NOT NULL,
                 data_nasc date NOT NULL,
                 contratacao date NOT NULL,
                 nome varchar(100) NOT NULL,
                 cargo varchar(20) NOT NULL,
                 salario float NOT NULL,
                 telefone varchar(25),
+                ativo BOOLEAN NOT NULL,
                 PRIMARY KEY (cpf)
                 ) COLLATE=utf8_unicode_ci";
     
@@ -46,7 +47,7 @@
             }
 
             $sql = "CREATE TABLE usuario(
-                cpf INT UNSIGNED NOT NULL,
+                cpf BIGINT UNSIGNED NOT NULL,
                 user varchar(20) NOT NULL,
                 senha varchar(20) NOT NULL,
                 tipo varchar(15) NOT NULL,
@@ -58,15 +59,15 @@
             }
 
             $stmt = $conn->prepare("INSERT INTO usuario (cpf, user, senha, tipo)
-            VALUES (1, '$user', '$passwordform', 'administrador')");
+            VALUES (1, '$user', '$passwordform', 'Administrador')");
             
             if(!$stmt->execute()){
                 die("Error inserting into table: " . mysqli_connect_error());
             }
 
             mysqli_close($conn);
-            setcookie('adm', 'cookie adm', time()+3600);
-            echo '<script>window.location.href = "adm.php"</script>';
+            setcookie('adm', 'cookie adm', time()+3600, '/');
+            echo '<script>window.location.href = "../Pages/adm.php"</script>';
             
 
         } else {
@@ -79,22 +80,22 @@
 
                 $row = $result->fetch_assoc();
 
-                if ($row['tipo'] == 'administrador') {
+                if ($row['tipo'] == 'Administrador') {
                     mysqli_close($conn);
-                    setcookie('adm', 'cookie adm', time()+3600);
-                    echo '<script>window.location.href = "adm.php"</script>';
+                    setcookie('adm', 'cookie adm', time()+3600, '/');
+                    echo '<script>window.location.href = "../Pages/adm.php"</script>';
                 } 
                 
-                else if ($row['tipo'] == 'gerente') {
+                else if ($row['tipo'] == 'Gerente') {
                     mysqli_close($conn);
-                    setcookie('gerente', 'cookie gerente', time()+3600);
-                    echo '<script>window.location.href = "gerente.php"</script>';
+                    setcookie('gerente', 'cookie gerente', time()+3600, '/');
+                    echo '<script>window.location.href = "../Pages/gerente.php"</script>';
                 }
                 
             } else{
                 mysqli_close($conn);
                 echo '<script>alert("Usuário e senha inválida")</script>';
-                echo '<script>window.location.href = "login.html"</script>';
+                echo '<script>window.location.href = "../login.html"</script>';
             }
 
 
