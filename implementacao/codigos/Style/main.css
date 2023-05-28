@@ -234,7 +234,7 @@ div#selected h3{
     width: 100%;
     height: calc(100% - 68px);
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     font-weight: bolder;
     font-size: 15px;
     gap: 15px;
@@ -243,7 +243,7 @@ div#selected h3{
 }
 
 .atrib_ret div{
-    width: 190px;
+    width: 150px;
 }
 
 .column .dados{

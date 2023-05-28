@@ -123,7 +123,7 @@
                 <a href="gerente_cliente.php"><h3>Clientes</h3></a>
                 <h3>Veículos</h3>
                 <h3>Vendas</h3>
-                <h3>Estoque</h3>
+                <a href="gerente_estoque.php"><h3>Estoque</h3></a>
                 <h3>Relatórios</h3>
             </div>
         </div>

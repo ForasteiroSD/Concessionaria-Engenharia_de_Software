@@ -15,8 +15,19 @@
 
     $i = 0;
     // Preparar e executar a consulta SQL para inserir o usuário
+    // for($i = 5; $i<20; $i++){
+    //     $sql = "INSERT INTO usuario (cpf, user, senha, tipo) VALUES (".$i.", 'abc', '123', 'gerente')";
+
+    //     if ($conn->query($sql) === TRUE) {
+    //         // echo '<script>window.location.href = "adm.php"</script>';
+    //     } else {
+    //         echo "Erro ao inserir usuário: " . $conn->error;
+    //     }
+    // }
+
+    // Preparar e executar a consulta SQL para inserir o usuário
     for($i = 5; $i<20; $i++){
-        $sql = "INSERT INTO usuario (cpf, user, senha, tipo) VALUES (".$i.", 'abc', '123', 'gerente')";
+        $sql = "INSERT INTO estoque (marca, modelo, tipo, preco, quantidade) VALUES ('Fiat', 'abc', 'Carro SUV', 1250.05, 0)";
 
         if ($conn->query($sql) === TRUE) {
             // echo '<script>window.location.href = "adm.php"</script>';
