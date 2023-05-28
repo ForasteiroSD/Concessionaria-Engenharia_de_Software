@@ -58,6 +58,20 @@
                 die("Error creating table: " . mysqli_connect_error());
             }
 
+            $sql = "CREATE TABLE cliente(
+                nome varchar(100) NOT NULL,
+                cpf BIGINT UNSIGNED NOT NULL,
+                data_nasc date NOT NULL,
+                telefone varchar(25),
+                email varchar(100),
+                ativo BOOLEAN NOT NULL,
+                PRIMARY KEY (cpf)
+                ) COLLATE=utf8_unicode_ci";
+    
+            if (!mysqli_query ($conn, $sql)) {
+                die("Error creating table: " . mysqli_connect_error());
+            }
+
             $stmt = $conn->prepare("INSERT INTO usuario (cpf, user, senha, tipo)
             VALUES (1, '$user', '$passwordform', 'Administrador')");
             
@@ -68,6 +82,7 @@
             mysqli_close($conn);
             setcookie('adm', 'cookie adm', time()+3600, '/');
             echo '<script>window.location.href = "../Pages/adm.php"</script>';
+            exit;
             
 
         } else {
@@ -84,12 +99,28 @@
                     mysqli_close($conn);
                     setcookie('adm', 'cookie adm', time()+3600, '/');
                     echo '<script>window.location.href = "../Pages/adm.php"</script>';
+                    exit;
                 } 
                 
                 else if ($row['tipo'] == 'Gerente') {
                     mysqli_close($conn);
                     setcookie('gerente', 'cookie gerente', time()+3600, '/');
                     echo '<script>window.location.href = "../Pages/gerente.php"</script>';
+                    exit;
+                }
+
+                else if ($row['tipo'] == 'Secretário') {
+                    mysqli_close($conn);
+                    setcookie('secretario', 'cookie secretario', time()+3600, '/');
+                    echo '<script>window.location.href = "../Pages/secretario.php"</script>';
+                    exit;
+                }
+
+                else if ($row['tipo'] == 'Vendedor') {
+                    mysqli_close($conn);
+                    setcookie('vendedor', 'cookie vendedor', time()+3600, '/');
+                    echo '<script>window.location.href = "../Pages/vendedor.php"</script>';
+                    exit;
                 }
                 
             } else{
