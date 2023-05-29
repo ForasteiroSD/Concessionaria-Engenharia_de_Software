@@ -26,15 +26,26 @@
     // }
 
     // Preparar e executar a consulta SQL para inserir o usuário
-    for($i = 5; $i<20; $i++){
-        $sql = "INSERT INTO estoque (marca, modelo, tipo, preco, quantidade) VALUES ('Fiat', 'abc', 'Carro SUV', 1250.05, 0)";
+    // for($i = 5; $i<20; $i++){
+    //     $sql = "INSERT INTO estoque (marca, modelo, tipo, preco, quantidade) VALUES ('Fiat', 'abc', 'Carro SUV', 1250.05, 0)";
 
-        if ($conn->query($sql) === TRUE) {
-            // echo '<script>window.location.href = "adm.php"</script>';
-        } else {
-            echo "Erro ao inserir usuário: " . $conn->error;
-        }
-    }
+    //     if ($conn->query($sql) === TRUE) {
+    //         // echo '<script>window.location.href = "adm.php"</script>';
+    //     } else {
+    //         echo "Erro ao inserir usuário: " . $conn->error;
+    //     }
+    // }
+
+    // for($i = 5; $i<20; $i++){
+    //     $sql = "INSERT INTO veiculo (marca, modelo, ano, placa, quilometragem, estado)
+    //     VALUES ('Fiat', 'abc', 2010, $i, 10, 'Disponível')";
+
+    //     if ($conn->query($sql) === TRUE) {
+    //         // echo '<script>window.location.href = "adm.php"</script>';
+    //     } else {
+    //         echo "Erro ao inserir usuário: " . $conn->error;
+    //     }
+    // }
 
     // Fechar a conexão com o banco de dados
     $conn->close();

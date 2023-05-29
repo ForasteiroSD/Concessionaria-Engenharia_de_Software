@@ -6,33 +6,29 @@
         echo '<script>window.location.href = "../login.html";</script>';
     }
 
-    if(isset($_POST['marca-c'])) $marca = '= "' . $_POST["marca-c"] . '"';
-    else $marca = 'IN (SELECT marca FROM estoque)';
-
-    if($marca == '= ""'){
-        $marca = 'IN (SELECT marca FROM estoque)';
+    if(isset($_POST['marca_modelo-c'])){
+        $marca_modelo = explode("-", $_POST['marca_modelo-c']);
+        if(count($marca_modelo) == 2){
+            $marca = '= "' . $marca_modelo[0] . '"';
+            $modelo = '= "' . $marca_modelo[1] . '"';
+        } else {
+            $marca = 'IN (SELECT marca FROM veiculo)';
+            $modelo = 'IN (SELECT modelo FROM veiculo)';
+        }
+    } else {
+        $marca = 'IN (SELECT marca FROM veiculo)';
+        $modelo = 'IN (SELECT modelo FROM veiculo)';
     }
 
-    if(isset($_POST['modelo-c'])) $modelo = '= "' . $_POST["modelo-c"] . '"';
-    else $modelo = 'IN (SELECT modelo FROM estoque)';
+    if(isset($_POST['placa-c'])) $placa = '= ' . $_POST["placa-c"] . '';
+    else $placa = 'IN (SELECT placa FROM veiculo)';
 
-    if($modelo == '= ""'){
-        $modelo = 'IN (SELECT modelo FROM estoque)';
+    if($placa == '= '){
+        $placa = 'IN (SELECT placa FROM veiculo)';
     }
 
-    if(isset($_POST['tipo-c'])) $tipo = '= "' . $_POST["tipo-c"] . '"';
-    else $tipo = 'IN (SELECT tipo FROM estoque)';
-
-    if($tipo == '= ""' or $tipo == '= "todos"'){
-        $tipo = 'IN (SELECT tipo FROM estoque)';
-    }
-
-    if(isset($_POST['quantidade-c'])) $quantidade = 'AND quantidade >= ' . $_POST["quantidade-c"] . '';
-    else $quantidade = '';
-
-    if($quantidade == 'AND quantidade >= '){
-        $quantidade = '';
-    }
+    if(isset($_POST['estado-c'])) $estado = 'AND estado = "' . $_POST["estado-c"] . '"';
+    else $estado = 'AND estado = "Disponível"';
 
     $servername = "localhost";
     $database = "concessionaria";
@@ -44,38 +40,52 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    $sql = "SELECT * FROM estoque WHERE marca $marca AND modelo $modelo AND tipo $tipo $quantidade ORDER BY quantidade DESC, marca";
+    $sql = "SELECT * FROM veiculo WHERE marca $marca AND modelo $modelo AND placa $placa $estado ORDER BY ano DESC, marca";
 
     $result = $conn->query($sql);
 
-    $ids = array();
     $marcas = array();
     $modelos = array();
-    $tipos = array();
-    $precos = array();
-    $quantidades = array();
+    $anos = array();
+    $placas = array();
+    $quilometragens = array();
+    $estados = array();
 
     $j = 0;
     $i = 0;
     while($row = $result->fetch_assoc()){
-        $ids[$i] = $row['id'];
         $marcas[$i] = $row['marca'];
         $modelos[$i] = $row['modelo'];
-        $tipos[$i] = $row['tipo'];
-        $precos[$i] = $row['preco'];
-        $quantidades[$i] = $row['quantidade'];
+        $anos[$i] = $row['ano'];
+        $placas[$i] = $row['placa'];
+        $quilometragens[$i] = $row['quilometragem'];
+        $estados[$i] = $row['estado'];
         $i++;
     }
 
+    $sql = "SELECT marca, modelo FROM estoque ORDER BY marca, modelo";
+
+    $result = $conn->query($sql);
+
+    $marcaE = array();
+    $modeloE = array();
+
+    $k = 0;
+    while($row = $result->fetch_assoc()){
+        $marcaE[$k] = $row['marca'];
+        $modeloE[$k] = $row['modelo'];
+        $k++;
+    }
+
     echo "<script>
-    let ids = []
-    let precos = []
+    let estados = []
+    let quilometragens = []
     </script>";
 
     for ($j=0; $j < $i; $j++){
         echo "<script>
-        ids.push('".$ids[$j]."');
-        precos.push('".$precos[$j]."');
+        estados.push('".$estados[$j]."');
+        quilometragens.push('".$quilometragens[$j]."');
         </script>";
     }
 
@@ -96,7 +106,7 @@
         <header>
             
             <div id='image'><img src="../../imgs/fita_logo.png" alt="Logo"></div>
-            <h2>Estoque</h2>
+            <h2>Veículos</h2>
             <?php
                 $timezone = new DateTimeZone('America/Sao_Paulo');
                 $agora = new DateTime('now', $timezone);
@@ -113,11 +123,11 @@
         <div class='options'>
             <div id='menu'>
                 <a href="vendedor.php"><h3>Clientes</h3></a>
-                <a href="vendedor_veiculos.php"><h3>Veículos</h3></a>
-                <h3>Vendas</h3>
                 <div id='selected'>
-                    <a href="vendedor_estoque.php"><h3>Estoque</h3></a>
+                    <a href="vendedor_veiculos.php"><h3>Veículos</h3></a>
                 </div>
+                <h3>Vendas</h3>
+                <a href="vendedor_estoque.php"><h3>Estoque</h3></a>
             </div>
         </div>
 
@@ -125,27 +135,27 @@
         <div class='consulta'>
             <form class='campos' method='post'>
                 <div>
-                    <label>Marca:</label>
-                    <input type="text" name="marca-c" />
-                </div>
-                <div>
-                    <label>Modelo:</label>
-                    <input type="text" name="modelo-c" />
-                </div>
-                <div>
-                    <label>Tipo:</label>
-                    <select name="tipo-c" id="cargo">
+                    <label>Marca e Modelo:</label>
+                    <select name="marca_modelo-c">
                         <option value="todos">Todos</option>
-                        <option value="Carro SUV">Carro SUV</option>
-                        <option value="Moto">Moto</option>
-                        <option value="Picape">Picape</option>
-                        <option value="Carro Hatch">Carro Hatch</option>
-                        <option value="Carro Sedan">Carro Sedan</option>
+                        <?php
+                            for($j = 0; $j<$k; $j++){
+                                echo "<option value='$marcaE[$j]-$modeloE[$j]'>$marcaE[$j]-$modeloE[$j]</option>";
+                            }
+                        ?>
                     </select>
                 </div>
                 <div>
-                    <label>Quantidade:</label>
-                    <input type="number" name="quantidade-c" />
+                    <label>Placa:</label>
+                    <input type="number" name="placa-c" />
+                </div>
+                <div>
+                    <label>Estado:</label>
+                    <select name="estado-c" id="cargo">
+                        <option value="Em processo de Venda">Em processo de Venda</option>
+                        <option value="Vendido">Vendido</option>
+                        <option value="Disponível" selected>Disponível</option>
+                    </select>
                 </div>
                 <div>
                     <button type="submit">
@@ -180,22 +190,22 @@
                 </div>
 
                 <div class="column">
-                    <h3>Tipo</h3>
+                    <h3>Ano</h3>
                     <div class='dados'>
                         <?php
                             for ($j=0; $j < $i; $j++) { 
-                                echo "<p id='tipo-". $j . "'>". $tipos[$j] . "</p><br>";
+                                echo "<p id='ano-". $j . "'>". $anos[$j] . "</p><br>";
                             }
                         ?>
                     </div>
                 </div>
 
                 <div class="column">
-                    <h3>Quantidade</h3>
+                    <h3>Placa</h3>
                     <div class='dados'>
                         <?php
                             for ($j=0; $j < $i; $j++) { 
-                                echo "<p id='quantidade-". $j . "'>". $quantidades[$j] . "</p><br>";
+                                echo "<p id='placa-". $j . "'>". $placas[$j] . "</p><br>";
                             }
                         ?>
                     </div>
@@ -221,8 +231,8 @@
         <div class="screen" id="screen-1">
             <div class="add_new" id="edit">
                 <form action="" class="form_new" method='post'>
-                    <h2>Estoque</h2>
-                    <img src="../../imgs/close_button.png" alt="Fechar Visualizar Estoque" onclick="closeEditForm()">
+                    <h2>Veículo</h2>
+                    <img src="../../imgs/close_button.png" alt="Fechar Visualizar Veículo" onclick="closeEditForm()">
                     <div>
                         <label>Marca:</label>
                         <input type="text" name="marca-e" readonly id='marca'/>
@@ -232,16 +242,20 @@
                         <input type="text" name="modelo-e" readonly id='modelo'/>
                     </div>
                     <div>
-                        <label>Preço:</label>
-                        <input type="number" name="data-e" readonly id='preco'/>
+                        <label>Ano:</label>
+                        <input type="number" name="ano-e" readonly id='ano'/>
                     </div>
                     <div>
-                        <label>Tipo:</label>
-                        <input type="text" name="tipo-e" id='tipo' readonly/>
+                        <label>Placa:</label>
+                        <input type="number" name="placa-e" id='placa' readonly/>
                     </div>
                     <div>
-                        <label>Quantidade:</label>
-                        <input type="number" name="quant-e" id='quant' readonly/>
+                        <label>Quilometragem:</label>
+                        <input type="number" name="quilo-e" id='quilo' readonly/>
+                    </div>
+                    <div>
+                        <label>Estado:</label>
+                        <input type="text" name="estado-e" id='estado' readonly/>
                     </div>
                 </form>
             </div>
@@ -268,13 +282,15 @@
         var modelo = document.getElementById("modelo-"+j).innerHTML
         document.getElementById("modelo").value = modelo;
 
-        var tipo = document.getElementById("tipo-"+j).innerHTML
-        document.getElementById("tipo").value = tipo;
+        var ano = document.getElementById("ano-"+j).innerHTML
+        document.getElementById("ano").value = ano;
 
-        var quant = document.getElementById("quantidade-"+j).innerHTML
-        document.getElementById("quant").value = quant;
+        var placa = document.getElementById("placa-"+j).innerHTML
+        document.getElementById("placa").value = placa;
 
-        document.getElementById("preco").value = precos[j];
+        document.getElementById("quilo").value = quilometragens[j];
+
+        document.getElementById("estado").value = estados[j];
     }
 
 </script>

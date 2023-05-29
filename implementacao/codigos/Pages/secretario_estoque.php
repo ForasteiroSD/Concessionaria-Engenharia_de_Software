@@ -130,7 +130,7 @@
                 </div>
                 <div>
                     <label>Modelo:</label>
-                    <input type="number" name="modelo-c" />
+                    <input type="text" name="modelo-c" />
                 </div>
                 <div>
                     <label>Tipo:</label>

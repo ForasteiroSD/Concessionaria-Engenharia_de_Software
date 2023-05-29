@@ -86,6 +86,20 @@
                 die("Error creating table: " . mysqli_connect_error());
             }
 
+            $sql = "CREATE TABLE veiculo(
+                marca varchar(100) NOT NULL,
+                modelo varchar(100) NOT NULL,
+                ano INT UNSIGNED NOT NULL,
+                placa INT UNSIGNED NOT NULL,
+                quilometragem INT UNSIGNED NOT NULL,
+                estado varchar(40) NOT NULL,
+                PRIMARY KEY (placa)
+                ) COLLATE=utf8_unicode_ci";
+    
+            if (!mysqli_query ($conn, $sql)) {
+                die("Error creating table: " . mysqli_connect_error());
+            }
+
             $stmt = $conn->prepare("INSERT INTO usuario (cpf, user, senha, tipo)
             VALUES (1, '$user', '$passwordform', 'Administrador')");
             
