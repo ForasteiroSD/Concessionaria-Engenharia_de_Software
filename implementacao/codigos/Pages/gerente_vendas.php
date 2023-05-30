@@ -6,17 +6,17 @@
         echo '<script>window.location.href = "../login.html";</script>';
     }
 
-    if(isset($_POST['cliente-c'])) $cliente = '= ' . $_POST["cliente-c"] . '';
+    if(isset($_POST['cliente-c'])) $cliente = '= "' . $_POST["cliente-c"] . '"';
     else $cliente = 'IN (SELECT cliente FROM venda)';
 
-    if($cliente == '= ' or $cliente == '= todos'){
+    if($cliente == '= ""' or $cliente == '= "todos"'){
         $cliente = 'IN (SELECT cliente FROM venda)';
     }
 
-    if(isset($_POST['vendedor-c'])) $vendedor = '= ' . $_POST["vendedor-c"] . '';
+    if(isset($_POST['vendedor-c'])) $vendedor = '= "' . $_POST["vendedor-c"] . '"';
     else $vendedor = 'IN (SELECT vendedor FROM venda)';
 
-    if($vendedor == '= ' or $vendedor == '= todos'){
+    if($vendedor == '= ""' or $vendedor == '= "todos"'){
         $vendedor = 'IN (SELECT vendedor FROM venda)';
     }
 
@@ -83,7 +83,7 @@
         precos.push('".$precos[$j]."');
         datas.push('".$datas[$j]."');
         estados.push('".$estados[$j]."');
-        placas.push(".$placas[$j].");
+        placas.push('".$placas[$j]."');
         </script>";
     }
 
@@ -278,7 +278,7 @@
                                 echo '<img class="icons" id="data-'. $j . '" src="../../imgs/remove_button.png" alt="Remover" onclick="removeForm('. $j . ')">
                                 <form action="../Remove/removevenda.php" id="remove-'.$j.'" class="remove" method="post">
                                     <input type="number" name="venda-r" value='.$ids[$j].' />
-                                    <input type="number" name="placas-r" value='.$placas[$j].' />
+                                    <input type="text" name="placas-r" value='.$placas[$j].' />
                                 </form><br>';
                             }
                         ?>
@@ -301,7 +301,7 @@
                 <img src="../../imgs/close_button.png" alt="Fechar Inserir Venda" onclick="closeInsertForm()">
                     <div>
                         <label>Cliente:</label>
-                        <select name="cliente-a">
+                        <select name="cliente-a" required>
                             <?php
                                 for($j = 0; $j<$qClientes; $j++){
                                     echo "<option value='$clienteCPF[$j]'>$clienteNome[$j]-$clienteCPF[$j]</option>";
@@ -311,7 +311,7 @@
                     </div>
                     <div>
                         <label>Vendedor:</label>
-                        <select name="vendedor-a">
+                        <select name="vendedor-a" required>
                             <?php
                                 for($j = 0; $j<$qVendedores; $j++){
                                     echo "<option value='$vendedorCPF[$j]'>$vendedorNome[$j]-$vendedorCPF[$j]</option>";
@@ -321,7 +321,7 @@
                     </div>
                     <div>
                         <label>Veículo:</label>
-                        <select name="veiculo-a">
+                        <select name="veiculo-a" required>
                             <?php
                                 for($j = 0; $j<$k; $j++){
                                     echo "<option value='$veiculoPlacaADD[$j]'>$veiculoPlacaADD[$j]</option>";
@@ -345,7 +345,7 @@
                     </div>
                     <div>
                         <label>Estado:</label>
-                        <select name="estado-a" id="cargo">
+                        <select name="estado-a" id="cargo" required>
                             <option value="Concluída">Concluída</option>
                             <option value="Em andamento">Em andamento</option>
                         </select>
@@ -384,7 +384,7 @@
                     </div>
                     <div>
                         <label>Veículo:</label>
-                        <input type="number" name="veiculo-e" id='veiculo' readonly/>
+                        <input type="text" name="veiculo-e" id='veiculo' readonly/>
                     </div>
                     <div>
                         <label>Preço:</label>
@@ -469,7 +469,7 @@
     }
 
     function verificaEdicao(){
-        pos = placas.indexOf(Number(document.getElementById("veiculo").value))
+        pos = placas.indexOf(document.getElementById("veiculo").value)
         
         if(estados[pos] == 'Concluída') {
             alert('Você não pode editar uma venda já concluída!')

@@ -20,7 +20,7 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    $sql = "UPDATE veiculo SET quilometragem = $quilo WHERE placa = $placa";
+    $sql = "UPDATE veiculo SET quilometragem = $quilo WHERE placa = '$placa'";
 
     if (!mysqli_query($conn, $sql)) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);

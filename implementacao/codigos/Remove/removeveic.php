@@ -1,12 +1,11 @@
 <?php
 
-    if(!(isset($_POST["venda-r"]) and isset($_POST['placas-r']))){
+    if(!(isset($_POST["placa-r"]))){
         echo '<script>window.location.href = "../login.html"</script>';
         exit;
     }
 
-    $id = $_POST['venda-r'];
-    $placa = $_POST['placas-r'];
+    $placa = $_POST['placa-r'];
 
     $servername = "localhost";
     $database = "concessionaria";
@@ -21,24 +20,28 @@
         die("Erro na conexão com o banco de dados: " . $conn->connect_error);
     }
 
-    $sql = "DELETE FROM venda WHERE id = $id";
+    $sql = "SELECT marca, modelo FROM veiculo WHERE placa = '$placa'";
 
-    if (!($conn->query($sql))) {
-        echo "Erro ao remover venda: " . $conn->error;
-    }
+    $result = $conn->query($sql);
 
-    $sql = "UPDATE veiculo SET estado = 'Disponível' WHERE placa = '$placa'";
+    $row = $result->fetch_assoc();
+    $marca = $row['marca'];
+    $modelo = $row['modelo'];
+
+    $sql = "UPDATE estoque SET quantidade = quantidade - 1 WHERE marca = '$marca' AND modelo = '$modelo'";
 
     if (!mysqli_query($conn, $sql)) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 
+    $sql = "DELETE FROM veiculo WHERE placa = '$placa'";
+
+    if (!($conn->query($sql))) {
+        echo "Erro ao remover veiculo: " . $conn->error;
+    }
+
     // Fechar a conexão com o banco de dados
     $conn->close();
 
-    if(isset($_COOKIE['gerente'])){
-        echo '<script>window.location.href = "../Pages/gerente_vendas.php"</script>';
-    } else if(isset($_COOKIE['vendedor'])){
-        echo '<script>window.location.href = "../Pages/vendedor_vendas.php"</script>';
-    }
+    echo '<script>window.location.href = "../Pages/gerente_veiculos.php"</script>';
 ?>

@@ -31,7 +31,7 @@
         if(!$tableExists){
 
             $sql = "CREATE TABLE funcionario(
-                cpf BIGINT UNSIGNED NOT NULL,
+                cpf varchar(11) NOT NULL,
                 data_nasc date NOT NULL,
                 contratacao date NOT NULL,
                 nome varchar(100) NOT NULL,
@@ -47,7 +47,7 @@
             }
 
             $sql = "CREATE TABLE usuario(
-                cpf BIGINT UNSIGNED NOT NULL,
+                cpf varchar(11) NOT NULL,
                 user varchar(20) NOT NULL,
                 senha varchar(20) NOT NULL,
                 tipo varchar(15) NOT NULL,
@@ -60,7 +60,7 @@
 
             $sql = "CREATE TABLE cliente(
                 nome varchar(100) NOT NULL,
-                cpf BIGINT UNSIGNED NOT NULL,
+                cpf varchar(11) NOT NULL,
                 data_nasc date NOT NULL,
                 telefone varchar(25),
                 email varchar(100),
@@ -90,7 +90,7 @@
                 marca varchar(100) NOT NULL,
                 modelo varchar(100) NOT NULL,
                 ano INT UNSIGNED NOT NULL,
-                placa INT UNSIGNED NOT NULL,
+                placa varchar(10) NOT NULL,
                 quilometragem INT UNSIGNED NOT NULL,
                 estado varchar(40) NOT NULL,
                 PRIMARY KEY (placa)
@@ -102,10 +102,10 @@
 
             $sql = "CREATE TABLE venda(
                 id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-                cliente BIGINT UNSIGNED NOT NULL,
-                vendedor BIGINT UNSIGNED NOT NULL,
+                cliente varchar(11) NOT NULL,
+                vendedor varchar(11) NOT NULL,
                 data_venda date NOT NULL,
-                veiculo INT UNSIGNED NOT NULL,
+                veiculo varchar(10) NOT NULL,
                 preco INT NOT NULL,
                 estado varchar(40) NOT NULL,
                 PRIMARY KEY (id)

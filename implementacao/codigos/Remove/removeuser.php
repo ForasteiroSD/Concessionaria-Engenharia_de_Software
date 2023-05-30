@@ -39,7 +39,7 @@
     }
 
     // Preparar e executar a consulta SQL para inserir o usuário
-    $sql = "DELETE FROM usuario WHERE cpf = $cpf";
+    $sql = "DELETE FROM usuario WHERE cpf = '$cpf'";
 
     if (!($conn->query($sql))) {
         echo "Erro ao remover usuário: " . $conn->error;

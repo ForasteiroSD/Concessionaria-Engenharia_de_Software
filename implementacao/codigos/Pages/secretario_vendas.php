@@ -6,17 +6,17 @@
         echo '<script>window.location.href = "../login.html";</script>';
     }
 
-    if(isset($_POST['cliente-c'])) $cliente = '= ' . $_POST["cliente-c"] . '';
+    if(isset($_POST['cliente-c'])) $cliente = '= "' . $_POST["cliente-c"] . '"';
     else $cliente = 'IN (SELECT cliente FROM venda)';
 
-    if($cliente == '= ' or $cliente == '= todos'){
+    if($cliente == '= ""' or $cliente == '= "todos"'){
         $cliente = 'IN (SELECT cliente FROM venda)';
     }
 
-    if(isset($_POST['vendedor-c'])) $vendedor = '= ' . $_POST["vendedor-c"] . '';
+    if(isset($_POST['vendedor-c'])) $vendedor = '= "' . $_POST["vendedor-c"] . '"';
     else $vendedor = 'IN (SELECT vendedor FROM venda)';
 
-    if($vendedor == '= ' or $vendedor == '= todos'){
+    if($vendedor == '= ""' or $vendedor == '= "todos"'){
         $vendedor = 'IN (SELECT vendedor FROM venda)';
     }
 
@@ -289,7 +289,7 @@
                     </div>
                     <div>
                         <label>Veículo:</label>
-                        <input type="number" name="veiculo-e" id='veiculo' readonly/>
+                        <input type="text" name="veiculo-e" id='veiculo' readonly/>
                     </div>
                     <div>
                         <label>Preço:</label>

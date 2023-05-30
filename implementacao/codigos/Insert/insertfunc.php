@@ -20,7 +20,7 @@
     $cont = $_POST['contratacao-a'];
     $cargo = $_POST['cargo-a'];
 
-    if($cpf < 10000000000){
+    if(strlen($cpf) != 11){
         echo"<script>alert('O cpf ".$cpf." é inválido')</script>";
         echo '<script>window.location.href = "../Pages/gerente.php"</script>';
         exit;
@@ -36,7 +36,7 @@
 
     // Preparar e executar a consulta SQL para inserir o funcionário
     $sql = "INSERT INTO funcionario (cpf, data_nasc, contratacao, nome, cargo, salario, telefone, ativo) 
-    VALUES ($cpf, '$nasc', '$cont', '$nome', '$cargo', $sal, '$tel', 1)";
+    VALUES ('$cpf', '$nasc', '$cont', '$nome', '$cargo', $sal, '$tel', 1)";
 
     if (!($conn->query($sql))) {
         echo "Erro ao inserir funcionário: " . $conn->error;

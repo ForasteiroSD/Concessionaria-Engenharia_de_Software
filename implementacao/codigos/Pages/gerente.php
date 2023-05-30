@@ -13,10 +13,10 @@
         $name = 'IN (SELECT nome FROM funcionario)';
     }
 
-    if(isset($_POST['cpf-c'])) $cpf = '= ' . $_POST["cpf-c"] . '';
+    if(isset($_POST['cpf-c'])) $cpf = '= "' . $_POST["cpf-c"] . '"';
     else $cpf = 'IN (SELECT cpf FROM funcionario)';
 
-    if($cpf == '= '){
+    if($cpf == '= ""'){
         $cpf = 'IN (SELECT cpf FROM funcionario)';
     }
 
@@ -80,7 +80,7 @@
         datas.push('".$datas[$j]."');
         contratacoes.push('".$contratacoes[$j]."');
         telefones.push('".$telefones[$j]."');
-        cpfs.push(".$cpfs[$j].")
+        cpfs.push('".$cpfs[$j]."')
         </script>";
     }
 
@@ -294,7 +294,7 @@
                     </div>
                     <div>
                         <label>CPF:</label>
-                        <input type="number" name="cpf-e" readonly id='cpf'/>
+                        <input type="text" name="cpf-e" readonly id='cpf'/>
                     </div>
                     <div>
                         <label>Data de nascimento:</label>
@@ -409,7 +409,7 @@
         string = string.split(":")
         string = string[1].split("?")
         string = string[0].split(" ")
-        pos = cpfs.indexOf(Number(string[1]))
+        pos = cpfs.indexOf(string[1])
         document.getElementById('remove-'+pos).submit()
     }
 

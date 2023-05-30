@@ -13,10 +13,10 @@
         $user = 'IN (SELECT user FROM usuario)';
     }
 
-    if(isset($_POST['cpf'])) $cpf = '= ' . $_POST["cpf"] . '';
+    if(isset($_POST['cpf'])) $cpf = '= "' . $_POST["cpf"] . '"';
     else $cpf = 'IN (SELECT cpf FROM usuario)';
 
-    if($cpf == '= '){
+    if($cpf == '= ""'){
         $cpf = 'IN (SELECT cpf FROM usuario)';
     }
 
@@ -68,7 +68,7 @@
     for ($j=0; $j < $i; $j++){
         echo "<script>
             senhas.push('".$senhas[$j]."')
-            cpfs.push(".$cpfs[$j].")
+            cpfs.push('".$cpfs[$j]."')
         </script>";
     }
 
@@ -347,7 +347,7 @@
         string = string.split(":")
         string = string[1].split("?")
         string = string[0].split(" ")
-        pos = cpfs.indexOf(Number(string[1]))
+        pos = cpfs.indexOf(string[1])
         document.getElementById('remove-'+pos).submit()
     }
 

@@ -25,7 +25,7 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    $sql = "UPDATE usuario SET tipo = '$tipo' WHERE cpf = $cpf";
+    $sql = "UPDATE usuario SET tipo = '$tipo' WHERE cpf = '$cpf'";
 
     if (!mysqli_query($conn, $sql)) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);

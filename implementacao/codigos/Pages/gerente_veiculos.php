@@ -20,10 +20,10 @@
         $modelo = 'IN (SELECT modelo FROM veiculo)';
     }
 
-    if(isset($_POST['placa-c'])) $placa = '= ' . $_POST["placa-c"] . '';
+    if(isset($_POST['placa-c'])) $placa = '= "' . $_POST["placa-c"] . '"';
     else $placa = 'IN (SELECT placa FROM veiculo)';
 
-    if($placa == '= '){
+    if($placa == '= ""'){
         $placa = 'IN (SELECT placa FROM veiculo)';
     }
 
@@ -151,7 +151,7 @@
                 </div>
                 <div>
                     <label>Placa:</label>
-                    <input type="number" name="placa-c" />
+                    <input type="text" name="placa-c" />
                 </div>
                 <div>
                     <label>Estado:</label>
@@ -222,8 +222,8 @@
                             for ($j=0; $j < $i; $j++) {
                                 echo '<img class="icons" id="data-'. $j . '" src="../../imgs/edit_button.png" alt="Editar" onclick="editForm('. $j . ')">';
                                 echo '<img class="icons" id="data-'. $j . '" src="../../imgs/remove_button.png" alt="Remover" onclick="removeForm('. $j . ')">
-                                <form action="../Remove/removefunc.php" id="remove-'.$j.'" class="remove" method="post">
-                                    <input type="number" name="placa-r" value='.$placas[$j].' />
+                                <form action="../Remove/removeveic.php" id="remove-'.$j.'" class="remove" method="post">
+                                    <input type="text" name="placa-r" value='.$placas[$j].' />
                                 </form><br>';
                             }
                         ?>
@@ -246,7 +246,7 @@
                     <img src="../../imgs/close_button.png" alt="Fechar Inserir Veículo" onclick="closeInsertForm()">
                     <div>
                         <label>Marca e Modelo:</label>
-                        <select name="marca_modelo-a" id="marcaModelo">
+                        <select name="marca_modelo-a" id="marcaModelo" required>
                             <?php
                                 for($j = 0; $j<$k; $j++){
                                     echo "<option value='$marcaE[$j]-$modeloE[$j]'>$marcaE[$j]-$modeloE[$j]</option>";
@@ -260,7 +260,7 @@
                     </div>
                     <div>
                         <label>Placa:</label>
-                        <input type="number" name="placa-a" required/>
+                        <input type="text" name="placa-a" required/>
                     </div>
                     <div>
                         <label>Quilometragem:</label>
@@ -278,7 +278,7 @@
         <div class="back" id="back-1"></div>
         <div class="screen" id="screen-1">
             <div class="add_new" id="edit">
-                <form action="../Edit/editveic.php" class="form_new" method='post'>
+                <form action="../Edit/editveic.php" class="form_new" method='post' id="form_edit">
                     <h2>Veículo</h2>
                     <img src="../../imgs/close_button.png" alt="Fechar Visualizar Veículo" onclick="closeEditForm()">
                     <div>
@@ -295,7 +295,7 @@
                     </div>
                     <div>
                         <label>Placa:</label>
-                        <input type="number" name="placa-e" id='placa' readonly/>
+                        <input type="text" name="placa-e" id='placa' readonly/>
                     </div>
                     <div>
                         <label>Quilometragem:</label>
@@ -306,7 +306,7 @@
                         <input type="text" name="estado-e" id='estado' readonly/>
                     </div>
                     <div>
-                        <button type="submit">
+                        <button type="button" onclick='verificaEdicao()'>
                             Editar
                         </button>
                     </div>
@@ -377,6 +377,20 @@
         document.getElementById("estado").value = estados[j];
     }
 
+    function verificaEdicao(){
+        var placa = document.getElementById("placa").value
+        pos = placas.indexOf(placa)
+        
+        estado = estados[pos]
+
+        if(estado == 'Vendido') {
+            alert("Você não pode alterar um veículo que já foi vendido.")
+        } else {
+            document.getElementById("form_edit").submit()
+        }
+
+    }
+
     function removeForm(j){
 
         if(estados[j] != "Disponível"){
@@ -399,7 +413,7 @@
         string = string.split(":")
         string = string[1].split("?")
         string = string[0].split(" ")
-        pos = placas.indexOf(Number(string[1]))
+        pos = placas.indexOf(string[1])
         document.getElementById('remove-'+pos).submit()
     }
 

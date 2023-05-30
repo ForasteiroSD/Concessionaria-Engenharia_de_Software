@@ -13,10 +13,10 @@
         $name = 'IN (SELECT nome FROM cliente)';
     }
 
-    if(isset($_POST['cpf-c'])) $cpf = '= ' . $_POST["cpf-c"] . '';
+    if(isset($_POST['cpf-c'])) $cpf = '= "' . $_POST["cpf-c"] . '"';
     else $cpf = 'IN (SELECT cpf FROM cliente)';
 
-    if($cpf == '= '){
+    if($cpf == '= ""'){
         $cpf = 'IN (SELECT cpf FROM cliente)';
     }
 
@@ -65,7 +65,7 @@
         echo "<script>
         datas.push('".$datas[$j]."');
         telefones.push('".$telefones[$j]."');
-        cpfs.push(".$cpfs[$j].");
+        cpfs.push('".$cpfs[$j]."');
         emails.push('".$emails[$j]."')
         </script>";
     }
@@ -162,7 +162,7 @@
                 </div>
 
                 <div class="column">
-                    <h3>Data de Nascimento</h3>
+                    <h3>Nascimento</h3>
                     <div class='dados'>
                         <?php
                             $partes = '';
@@ -350,7 +350,7 @@
         string = string.split(":")
         string = string[1].split("?")
         string = string[0].split(" ")
-        pos = cpfs.indexOf(Number(string[1]))
+        pos = cpfs.indexOf(string[1])
         document.getElementById('remove-'+pos).submit()
     }
 

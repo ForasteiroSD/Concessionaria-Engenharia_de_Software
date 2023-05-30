@@ -20,10 +20,10 @@
         $modelo = 'IN (SELECT modelo FROM veiculo)';
     }
 
-    if(isset($_POST['placa-c'])) $placa = '= ' . $_POST["placa-c"] . '';
+    if(isset($_POST['placa-c'])) $placa = '= "' . $_POST["placa-c"] . '"';
     else $placa = 'IN (SELECT placa FROM veiculo)';
 
-    if($placa == '= '){
+    if($placa == '= ""'){
         $placa = 'IN (SELECT placa FROM veiculo)';
     }
 
@@ -147,7 +147,7 @@
                 </div>
                 <div>
                     <label>Placa:</label>
-                    <input type="number" name="placa-c" />
+                    <input type="text" name="placa-c" />
                 </div>
                 <div>
                     <label>Estado:</label>
@@ -247,7 +247,7 @@
                     </div>
                     <div>
                         <label>Placa:</label>
-                        <input type="number" name="placa-e" id='placa' readonly/>
+                        <input type="text" name="placa-e" id='placa' readonly/>
                     </div>
                     <div>
                         <label>Quilometragem:</label>

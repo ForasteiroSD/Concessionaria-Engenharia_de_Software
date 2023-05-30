@@ -1,9 +1,11 @@
 <?php
 
-    if(!(isset($_POST["cpf-r"]) or isset($_POST["cpf-a"]))){
+    if(!(isset($_POST["id-r"]))){
         echo '<script>window.location.href = "../login.html"</script>';
         exit;
     }
+
+    $id = $_POST["id-r"];
 
     $servername = "localhost";
     $database = "concessionaria";
@@ -18,21 +20,15 @@
         die("Erro na conexão com o banco de dados: " . $conn->connect_error);
     }
 
-    // Dados do usuário a ser removido ou reativado
-    if(isset($_POST["cpf-r"])){
-        $cpf = $_POST["cpf-r"];
-        $sql = "UPDATE funcionario SET ativo = 0 WHERE cpf = '$cpf'";
-    } else {
-        $cpf = $_POST["cpf-a"];
-        $sql = "UPDATE funcionario SET ativo = 1 WHERE cpf = '$cpf'";
-    }
+    $sql = "DELETE FROM estoque WHERE id = $id";
 
     if (!($conn->query($sql))) {
-        echo "Erro ao remover usuário: " . $conn->error;
+        echo "Erro ao remover estoque: " . $conn->error;
     }
 
     // Fechar a conexão com o banco de dados
     $conn->close();
 
-    echo '<script>window.location.href = "../Pages/gerente.php"</script>';
+    echo '<script>window.location.href = "../Pages/gerente_estoque.php"</script>';
+
 ?>

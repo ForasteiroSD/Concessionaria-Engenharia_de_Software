@@ -21,10 +21,10 @@
     // Dados do usuário a ser removido ou reativado
     if(isset($_POST["cpf-r"])){
         $cpf = $_POST["cpf-r"];
-        $sql = "UPDATE cliente SET ativo = 0 WHERE cpf = $cpf";
+        $sql = "UPDATE cliente SET ativo = 0 WHERE cpf = '$cpf'";
     } else {
         $cpf = $_POST["cpf-a"];
-        $sql = "UPDATE cliente SET ativo = 1 WHERE cpf = $cpf";
+        $sql = "UPDATE cliente SET ativo = 1 WHERE cpf = '$cpf'";
     }
 
     if (!($conn->query($sql))) {
@@ -37,7 +37,7 @@
     if (isset($_COOKIE['secretario'])) {
         echo '<script>window.location.href = "../Pages/secretario.php"</script>';
     } else if(isset($_COOKIE['gerente'])){
-        echo '<script>window.location.href = "../Pages/gerente_cliente.php"</script>';
+        echo '<script>window.location.href = "../Pages/gerente_clientes.php"</script>';
     } else if(isset($_COOKIE['vendedor'])){
         echo '<script>window.location.href = "../Pages/vendedor.php"</script>';
     }

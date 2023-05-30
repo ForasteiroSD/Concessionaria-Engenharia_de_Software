@@ -18,7 +18,7 @@
     $tipo = $_POST['tipo'];
 
     //Verificação básica de cpf
-    if($cpf < 10000000000){
+    if(strlen($cpf) != 11){
         echo"<script>alert('O cpf ".$cpf." é inválido')</script>";
         echo '<script>window.location.href = "../Pages/adm.php"</script>';
         exit;
@@ -96,7 +96,7 @@
     } else {
 
         // Preparar e executar a consulta SQL para inserir o usuário
-        $sql = "INSERT INTO usuario (cpf, user, senha, tipo) VALUES ($cpf, '$user', '$senha', '$tipo')";
+        $sql = "INSERT INTO usuario (cpf, user, senha, tipo) VALUES ('$cpf', '$user', '$senha', '$tipo')";
 
         if (!($conn->query($sql))) {
             echo "Erro ao inserir usuário: " . $conn->error;

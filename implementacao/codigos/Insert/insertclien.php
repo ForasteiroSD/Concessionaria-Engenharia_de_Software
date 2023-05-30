@@ -18,13 +18,14 @@
     $tel = $_POST['telefone-a'];
     $email = $_POST['email-a'];
 
+    
 
-    if($cpf < 10000000000){
+    if(strlen($cpf) != 11){
         echo"<script>alert('O cpf ".$cpf." é inválido')</script>";
         if (isset($_COOKIE['secretario'])) {
             echo '<script>window.location.href = "../Pages/secretario.php"</script>';
         } else if(isset($_COOKIE['gerente'])){
-            echo '<script>window.location.href = "../Pages/gerente_cliente.php"</script>';
+            echo '<script>window.location.href = "../Pages/gerente_clientes.php"</script>';
         } else if(isset($_COOKIE['vendedor'])){
             echo '<script>window.location.href = "../Pages/vendedor.php"</script>';
         }
@@ -43,7 +44,7 @@
         if (isset($_COOKIE['secretario'])) {
             echo '<script>window.location.href = "../Pages/secretario.php"</script>';
         } else if(isset($_COOKIE['gerente'])){
-            echo '<script>window.location.href = "../Pages/gerente_cliente.php"</script>';
+            echo '<script>window.location.href = "../Pages/gerente_clientes.php"</script>';
         } else if(isset($_COOKIE['vendedor'])){
             echo '<script>window.location.href = "../Pages/vendedor.php"</script>';
         }
@@ -60,7 +61,7 @@
 
     // Preparar e executar a consulta SQL para inserir o funcionário
     $sql = "INSERT INTO cliente (cpf, data_nasc, nome, email, telefone, ativo) 
-    VALUES ($cpf, '$nasc', '$nome', '$email', '$tel', 1)";
+    VALUES ('$cpf', '$nasc', '$nome', '$email', '$tel', 1)";
 
     if (!($conn->query($sql))) {
         echo "Erro ao inserir cliente: " . $conn->error;
@@ -72,7 +73,7 @@
     if (isset($_COOKIE['secretario'])) {
         echo '<script>window.location.href = "../Pages/secretario.php"</script>';
     } else if(isset($_COOKIE['gerente'])){
-        echo '<script>window.location.href = "../Pages/gerente_cliente.php"</script>';
+        echo '<script>window.location.href = "../Pages/gerente_clientes.php"</script>';
     } else if(isset($_COOKIE['vendedor'])){
         echo '<script>window.location.href = "../Pages/vendedor.php"</script>';
     }

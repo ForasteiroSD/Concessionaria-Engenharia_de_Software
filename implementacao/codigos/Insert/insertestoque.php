@@ -1,6 +1,6 @@
 <?php
      if(!(isset($_POST['marca-a']) and isset($_POST['modelo-a']) and isset($_POST['preco-a']) and isset($_POST['tipo-a']))){
-         echo '<script>window.location.href = ""../Pages/gerente_estoque.php"</script>';
+         echo '<script>window.location.href = ""../login.html"</script>';
          exit;
      }
     $servername = "localhost";

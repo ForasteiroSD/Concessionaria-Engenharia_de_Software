@@ -40,20 +40,20 @@
 
     // Preparar e executar a consulta SQL para inserir o funcionário
     $sql = "INSERT INTO venda (cliente, vendedor, data_venda, veiculo, preco, estado) 
-    VALUES ($cliente, $vendedor, '$data', $veiculo, $preco, '$estado')";
+    VALUES ('$cliente', '$vendedor', '$data', '$veiculo', $preco, '$estado')";
 
     if (!($conn->query($sql))) {
         echo "Erro ao inserir venda: " . $conn->error;
     }
 
     if($estado == 'Concluída'){
-        $sql = "UPDATE veiculo SET estado = 'Vendido' WHERE placa = $veiculo";
+        $sql = "UPDATE veiculo SET estado = 'Vendido' WHERE placa = '$veiculo'";
 
         if (!mysqli_query($conn, $sql)) {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
 
-        $sql = "SELECT marca, modelo FROM veiculo WHERE placa = $veiculo";
+        $sql = "SELECT marca, modelo FROM veiculo WHERE placa = '$veiculo'";
 
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
@@ -61,14 +61,14 @@
         $marca = $row['marca'];
         $modelo = $row['modelo'];
 
-        $sql = "UPDATE estoque SET quantidade = quantidade - 1 WHERE marca = $marca, modelo = $modelo";
+        $sql = "UPDATE estoque SET quantidade = quantidade - 1 WHERE marca = '$marca', modelo = '$modelo'";
 
         if (!mysqli_query($conn, $sql)) {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
 
     } else {
-        $sql = "UPDATE veiculo SET estado = 'Em processo de Venda' WHERE placa = $veiculo";
+        $sql = "UPDATE veiculo SET estado = 'Em processo de Venda' WHERE placa = '$veiculo'";
 
         if (!mysqli_query($conn, $sql)) {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);

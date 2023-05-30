@@ -54,7 +54,7 @@
     $tipos = array();
     $precos = array();
     $quantidades = array();
-    $marca_modelo_tipo = array();
+    $marca_modelo = array();
 
     $j = 0;
     $i = 0;
@@ -65,7 +65,7 @@
         $tipos[$i] = $row['tipo'];
         $precos[$i] = $row['preco'];
         $quantidades[$i] = $row['quantidade'];
-        $marca_modelo_tipo[$i] = "$marcas[$i]-$modelos[$i]-$tipos[$i]";
+        $marca_modelo[$i] = "$marcas[$i]-$modelos[$i]";
         $i++;
     }
 
@@ -73,15 +73,15 @@
     let ids = []
     let precos = []
     let quantidades = []
-    let marca_modelo_tipo = []
+    let marca_modelo = []
     </script>";
 
     for ($j=0; $j < $i; $j++){
         echo "<script>
-        ids.push('".$ids[$j]."');
+        ids.push(".$ids[$j].");
         precos.push('".$precos[$j]."');
         quantidades.push(".$quantidades[$j].");
-        marca_modelo_tipo.push('".$marca_modelo_tipo[$j]."');
+        marca_modelo.push('".$marca_modelo[$j]."');
         </script>";
     }
 
@@ -217,7 +217,7 @@
                                 echo '<img class="icons" id="data-'. $j . '" src="../../imgs/edit_button.png" alt="Editar" onclick="editForm('. $j . ')">';
                                 echo '<img class="icons" id="data-'. $j . '" src="../../imgs/remove_button.png" alt="Remover" onclick="removeForm('. $j . ')">
                                 <form action="../Remove/removeestoque.php" id="remove-'.$j.'" class="remove" method="post">
-                                    <input type="number" name="cpf-r" value='.$ids[$j].' />
+                                    <input type="number" name="id-r" value='.$ids[$j].' />
                                 </form><br>';
                             }
                         ?>
@@ -345,10 +345,9 @@
     function verificaInsercao(){
         marca = document.getElementById("marca-a").value
         modelo = document.getElementById("modelo-a").value
-        tipo = document.getElementById("tipo-a").value
-        marca = marca + '-' + modelo + '-' + tipo
-        if (marca_modelo_tipo.indexOf(marca) > -1) {
-            alert("Você não pode inserir algo com mesma marca, modelo e tipo já existente!")
+        marca = marca + '-' + modelo
+        if (marca_modelo.indexOf(marca) > -1) {
+            alert("Você não pode inserir algo com mesma marca e modelo já existente!")
         } else {
             document.getElementById('form_add').submit()
         }

@@ -26,13 +26,13 @@
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 
-    $sql = "UPDATE veiculo SET estado = 'Vendido' WHERE placa = $veiculo";
+    $sql = "UPDATE veiculo SET estado = 'Vendido' WHERE placa = '$veiculo'";
 
     if (!mysqli_query($conn, $sql)) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 
-    $sql = "SELECT marca, modelo FROM veiculo WHERE placa = $veiculo";
+    $sql = "SELECT marca, modelo FROM veiculo WHERE placa = '$veiculo'";
 
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
@@ -40,7 +40,7 @@
     $marca = $row['marca'];
     $modelo = $row['modelo'];
 
-    $sql = "UPDATE estoque SET quantidade = quantidade - 1 WHERE marca = $marca, modelo = $modelo";
+    $sql = "UPDATE estoque SET quantidade = quantidade - 1 WHERE marca = '$marca' AND modelo = '$modelo'";
 
     if (!mysqli_query($conn, $sql)) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);

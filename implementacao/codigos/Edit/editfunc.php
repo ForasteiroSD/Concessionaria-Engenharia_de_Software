@@ -25,7 +25,7 @@
     }
 
     $sql = "UPDATE funcionario SET nome = '$name', telefone = '$telefone', salario = $salario, cargo = '$cargo'
-    WHERE cpf = $cpf";
+    WHERE cpf = '$cpf'";
 
     if (!mysqli_query($conn, $sql)) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
