@@ -30,7 +30,7 @@
 
     // Preparar e executar a consulta SQL para inserir o funcionário
     $sql = "INSERT INTO estoque (marca, modelo, preco, tipo	,quantidade) 
-    VALUES ('$marca' , '$modelo', '$preco', '$tipo', 0)";
+    VALUES ('$marca' , '$modelo', $preco, '$tipo', 0)";
 
     if (!($conn->query($sql))) {
         echo "Erro ao inserir estoque: " . $conn->error;

@@ -1,13 +1,13 @@
 <?php
 
-    if(!(isset($_POST['id-e']) and isset($_POST['marca-e']) and isset($_POST['modelo-e']) and isset($_POST['tipo-e'])
-    and isset($_POST['preco-e']) and isset($_POST['quant-e']))){
+    if(!(isset($_POST['marca-e']) and isset($_POST['modelo-e']) and isset($_POST['ano-e'])
+    and isset($_POST['placa-e']) and isset($_POST['quilo-e']) and isset($_POST['estado-e']))){
         echo '<script>window.location.href = "../login.html"</script>';
         exit;
     }
 
-    $id = $_POST['id-e'];
-    $preco = $_POST['preco-e'];
+    $placa = $_POST['placa-e'];
+    $quilo = $_POST['quilo-e'];
 
     $servername = "localhost";
     $database = "concessionaria";
@@ -20,7 +20,7 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    $sql = "UPDATE estoque SET preco = $preco WHERE id = $id";
+    $sql = "UPDATE veiculo SET quilometragem = $quilo WHERE placa = $placa";
 
     if (!mysqli_query($conn, $sql)) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -28,6 +28,6 @@
 
     mysqli_close($conn);
 
-    echo '<script>window.location.href = "../Pages/gerente_estoque.php"</script>';
+    echo '<script>window.location.href = "../Pages/gerente_veiculos.php"</script>';
 
 ?>

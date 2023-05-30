@@ -100,6 +100,21 @@
                 die("Error creating table: " . mysqli_connect_error());
             }
 
+            $sql = "CREATE TABLE venda(
+                id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+                cliente BIGINT UNSIGNED NOT NULL,
+                vendedor BIGINT UNSIGNED NOT NULL,
+                data_venda date NOT NULL,
+                veiculo INT UNSIGNED NOT NULL,
+                preco INT NOT NULL,
+                estado varchar(40) NOT NULL,
+                PRIMARY KEY (id)
+                ) COLLATE=utf8_unicode_ci";
+    
+            if (!mysqli_query ($conn, $sql)) {
+                die("Error creating table: " . mysqli_connect_error());
+            }
+
             $stmt = $conn->prepare("INSERT INTO usuario (cpf, user, senha, tipo)
             VALUES (1, '$user', '$passwordform', 'Administrador')");
             

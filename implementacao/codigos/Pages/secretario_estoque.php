@@ -114,7 +114,7 @@
             <div id='menu'>  
                 <a href="secretario.php"><h3>Clientes</h3></a>
                 <a href="secretario_veiculos.php"><h3>Veículos</h3></a>
-                <h3>Vendas</h3>
+                <a href="secretario_vendas.php"><h3>Vendas</h3></a>
                 <div id='selected'>
                     <a href="secretario_estoque.php"><h3>Estoque</h3></a>
                 </div>
@@ -224,6 +224,10 @@
                     <h2>Estoque</h2>
                     <img src="../../imgs/close_button.png" alt="Fechar Visualizar Estoque" onclick="closeEditForm()">
                     <div>
+                        <label>ID:</label>
+                        <input type="number" name="id-e" id='id' readonly/>
+                    </div>
+                    <div>
                         <label>Marca:</label>
                         <input type="text" name="marca-e" readonly id='marca'/>
                     </div>
@@ -233,7 +237,7 @@
                     </div>
                     <div>
                         <label>Preço:</label>
-                        <input type="number" name="data-e" readonly id='preco'/>
+                        <input type="number" name="preco-e" readonly id='preco'/>
                     </div>
                     <div>
                         <label>Tipo:</label>
@@ -262,6 +266,8 @@
         document.getElementById("back-1").style.display = "block"
         document.getElementById("screen-1").style.visibility = "visible"
         document.getElementById("edit").style.opacity = "1"
+
+        document.getElementById("id").value = ids[j]
 
         var marca = document.getElementById("marca-"+j).innerHTML
         document.getElementById("marca").value = marca;

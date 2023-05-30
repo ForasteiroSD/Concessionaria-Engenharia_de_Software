@@ -54,6 +54,7 @@
     $tipos = array();
     $precos = array();
     $quantidades = array();
+    $marca_modelo_tipo = array();
 
     $j = 0;
     $i = 0;
@@ -64,6 +65,7 @@
         $tipos[$i] = $row['tipo'];
         $precos[$i] = $row['preco'];
         $quantidades[$i] = $row['quantidade'];
+        $marca_modelo_tipo[$i] = "$marcas[$i]-$modelos[$i]-$tipos[$i]";
         $i++;
     }
 
@@ -71,6 +73,7 @@
     let ids = []
     let precos = []
     let quantidades = []
+    let marca_modelo_tipo = []
     </script>";
 
     for ($j=0; $j < $i; $j++){
@@ -78,6 +81,7 @@
         ids.push('".$ids[$j]."');
         precos.push('".$precos[$j]."');
         quantidades.push(".$quantidades[$j].");
+        marca_modelo_tipo.push('".$marca_modelo_tipo[$j]."');
         </script>";
     }
 
@@ -117,7 +121,7 @@
                 <a href="gerente.php"><h3>Funcionários</h3></a>
                 <a href="gerente_clientes.php"><h3>Clientes</h3></a>
                 <a href="gerente_veiculos.php"><h3>Veículos</h3></a>
-                <h3>Vendas</h3>
+                <a href="gerente_vendas.php"><h3>Vendas</h3></a>
                 <div id='selected'>
                     <a href="gerente_estoque.php"><h3>Estoque</h3></a>
                 </div>
@@ -231,16 +235,16 @@
         <div class="back" id="back"></div>
         <div class="screen" id="screen">
             <div class="add_new" id="add_new">
-                <form action="../Insert/insertestoque.php" class="form_new" method='post'>
+                <form action="../Insert/insertestoque.php" class="form_new" method='post' id='form_add'>
                     <h2>Inserir no Estoque</h2>
                     <img src="../../imgs/close_button.png" alt="Fechar Inserir no Estoque" onclick="closeInsertForm()">
                     <div>
                         <label>Marca:</label>
-                        <input type="text" name="marca-a" required/>
+                        <input type="text" name="marca-a" required id='marca-a'/>
                     </div>
                     <div>
                         <label>Modelo:</label>
-                        <input type="text" name="modelo-a" required/>
+                        <input type="text" name="modelo-a" id='modelo-a' required/>
                     </div>
                     <div>
                         <label>Preço:</label>
@@ -248,7 +252,7 @@
                     </div>
                     <div>
                         <label>Tipo:</label>
-                        <select name="tipo-a" id='cargo-1'>
+                        <select name="tipo-a" id='tipo-a'>
                             <option value="Carro SUV">Carro SUV</option>
                             <option value="Moto">Moto</option>
                             <option value="Picape">Picape</option>
@@ -257,7 +261,7 @@
                         </select>
                     </div>
                     <div>
-                        <button type="submit">
+                        <button type="button" onclick='verificaInsercao()'>
                             Inserir
                         </button>
                     </div>
@@ -271,6 +275,10 @@
                 <form action="../Edit/editestoque.php" class="form_new" method='post'>
                     <h2>Estoque</h2>
                     <img src="../../imgs/close_button.png" alt="Fechar Editar Estoque" onclick="closeEditForm()">
+                    <div>
+                        <label>ID:</label>
+                        <input type="number" name="id-e" id='id' readonly/>
+                    </div>
                     <div>
                         <label>Marca:</label>
                         <input type="text" name="marca-e" readonly id='marca'/>
@@ -334,6 +342,18 @@
         document.getElementById("add_new").style.opacity = "1"
     }
 
+    function verificaInsercao(){
+        marca = document.getElementById("marca-a").value
+        modelo = document.getElementById("modelo-a").value
+        tipo = document.getElementById("tipo-a").value
+        marca = marca + '-' + modelo + '-' + tipo
+        if (marca_modelo_tipo.indexOf(marca) > -1) {
+            alert("Você não pode inserir algo com mesma marca, modelo e tipo já existente!")
+        } else {
+            document.getElementById('form_add').submit()
+        }
+    }
+
     function closeEditForm(){
         document.getElementById("back-1").style.display = "none"
         document.getElementById("screen-1").style.visibility = "hidden"
@@ -344,6 +364,8 @@
         document.getElementById("back-1").style.display = "block"
         document.getElementById("screen-1").style.visibility = "visible"
         document.getElementById("edit").style.opacity = "1"
+
+        document.getElementById("id").value = ids[j]
 
         var marca = document.getElementById("marca-"+j).innerHTML
         document.getElementById("marca").value = marca;
@@ -382,7 +404,7 @@
         string = string.split(":")
         string = string[1].split("?")
         string = string[0].split(" ")
-        pos = cpfs.indexOf(Number(string[1]))
+        pos = ids.indexOf(Number(string[1]))
         document.getElementById('remove-'+pos).submit()
     }
 

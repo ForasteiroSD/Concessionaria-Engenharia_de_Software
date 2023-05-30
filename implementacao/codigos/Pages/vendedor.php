@@ -107,7 +107,7 @@
                     <a href="vendedor.php"><h3>Clientes</h3></a>
                 </div>
                 <a href="vendedor_veiculos.php"><h3>Veículos</h3></a>
-                <h3>Vendas</h3>
+                <a href="vendedor_vendas.php"><h3>Vendas</h3></a>
                 <a href="vendedor_estoque.php"><h3>Estoque</h3></a>
             </div>
         </div>

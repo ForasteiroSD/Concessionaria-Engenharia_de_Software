@@ -27,6 +27,17 @@
 
     // Preparar e executar a consulta SQL para inserir o usuário
     // for($i = 5; $i<20; $i++){
+    //     $sql = "INSERT INTO cliente (nome, cpf, data_nasc, telefone, email, ativo) VALUES ('thiago', $i, '2010-05-10', 123, 'aaa', 1)";
+
+    //     if ($conn->query($sql) === TRUE) {
+    //         // echo '<script>window.location.href = "adm.php"</script>';
+    //     } else {
+    //         echo "Erro ao inserir usuário: " . $conn->error;
+    //     }
+    // }
+
+    // // Preparar e executar a consulta SQL para inserir o usuário
+    // for($i = 5; $i<20; $i++){
     //     $sql = "INSERT INTO estoque (marca, modelo, tipo, preco, quantidade) VALUES ('Fiat', 'abc', 'Carro SUV', 1250.05, 0)";
 
     //     if ($conn->query($sql) === TRUE) {
@@ -45,6 +56,25 @@
     //     } else {
     //         echo "Erro ao inserir usuário: " . $conn->error;
     //     }
+    // }
+
+
+    // for($i = 5; $i<20; $i++){
+    //     $sql = "INSERT INTO funcionario (nome, cpf, data_nasc, telefone, contratacao, cargo, salario, ativo) VALUES ('thiago', $i, '2010-05-10', '123', '2010-05-11', 'Vendedor', 1000, 1)";
+
+    //     if ($conn->query($sql) === TRUE) {
+    //         // echo '<script>window.location.href = "adm.php"</script>';
+    //     } else {
+    //         echo "Erro ao inserir usuário: " . $conn->error;
+    //     }
+    // }
+
+    // $sql = "INSERT INTO funcionario (nome, cpf, data_nasc, telefone, contratacao, cargo, salario, ativo) VALUES ('thiago', 1, '2010-05-10', '123', '2010-05-11', 'Secretário', 1000, 1)";
+
+    // if ($conn->query($sql) === TRUE) {
+    //     // echo '<script>window.location.href = "adm.php"</script>';
+    // } else {
+    //     echo "Erro ao inserir usuário: " . $conn->error;
     // }
 
     // Fechar a conexão com o banco de dados

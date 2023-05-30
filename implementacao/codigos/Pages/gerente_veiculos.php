@@ -129,7 +129,7 @@
                 <div id='selected'>
                     <a href="gerente_veiculos.php"><h3>Veículos</h3></a>
                 </div>
-                <h3>Vendas</h3>
+                <a href="gerente_vendas.php"><h3>Vendas</h3></a>
                 <a href="gerente_estoque.php"><h3>Estoque</h3></a>
                 <h3>Relatórios</h3>
             </div>
@@ -243,7 +243,7 @@
             <div class="add_new" id="add_new">
                 <form action="../Insert/insertveic.php" class="form_new" method='post'>
                 <h2>Inserir novo Veículo</h2>
-                    <img src="../../imgs/close_button.png" alt="Fechar Inseritr Veículo" onclick="closeInsertForm()">
+                    <img src="../../imgs/close_button.png" alt="Fechar Inserir Veículo" onclick="closeInsertForm()">
                     <div>
                         <label>Marca e Modelo:</label>
                         <select name="marca_modelo-a" id="marcaModelo">

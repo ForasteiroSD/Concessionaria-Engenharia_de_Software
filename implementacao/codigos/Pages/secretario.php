@@ -107,7 +107,7 @@
                     <a href="secretario.php"><h3>Clientes</h3></a>
                 </div>
                 <a href="secretario_veiculos.php"><h3>Veículos</h3></a>
-                <h3>Vendas</h3>
+                <a href="secretario_vendas.php"><h3>Vendas</h3></a>
                 <a href="secretario_estoque.php"><h3>Estoque</h3></a>
             </div>
         </div>
