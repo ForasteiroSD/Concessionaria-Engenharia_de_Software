@@ -299,7 +299,7 @@
                 <img src="../../imgs/close_button.png" alt="Fechar Inserir Venda" onclick="closeInsertForm()">
                     <div>
                         <label>Cliente:</label>
-                        <select name="cliente-a">
+                        <select name="cliente-a" required>
                             <?php
                                 for($j = 0; $j<$qClientes; $j++){
                                     echo "<option value='$clienteCPF[$j]'>$clienteNome[$j]-$clienteCPF[$j]</option>";
@@ -309,7 +309,7 @@
                     </div>
                     <div>
                         <label>Vendedor:</label>
-                        <select name="vendedor-a">
+                        <select name="vendedor-a" required>
                             <?php
                                 for($j = 0; $j<$qVendedores; $j++){
                                     echo "<option value='$vendedorCPF[$j]'>$vendedorNome[$j]-$vendedorCPF[$j]</option>";
@@ -319,7 +319,7 @@
                     </div>
                     <div>
                         <label>Veículo:</label>
-                        <select name="veiculo-a">
+                        <select name="veiculo-a" required>
                             <?php
                                 for($j = 0; $j<$k; $j++){
                                     echo "<option value='$veiculoPlacaADD[$j]'>$veiculoPlacaADD[$j]</option>";
@@ -343,7 +343,7 @@
                     </div>
                     <div>
                         <label>Estado:</label>
-                        <select name="estado-a" id="cargo">
+                        <select name="estado-a" id="cargo" required>
                             <option value="Concluída">Concluída</option>
                             <option value="Em andamento">Em andamento</option>
                         </select>

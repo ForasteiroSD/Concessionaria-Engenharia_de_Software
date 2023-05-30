@@ -61,7 +61,7 @@
         $marca = $row['marca'];
         $modelo = $row['modelo'];
 
-        $sql = "UPDATE estoque SET quantidade = quantidade - 1 WHERE marca = '$marca', modelo = '$modelo'";
+        $sql = "UPDATE estoque SET quantidade = quantidade - 1 WHERE marca = '$marca' AND modelo = '$modelo'";
 
         if (!mysqli_query($conn, $sql)) {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);

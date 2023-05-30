@@ -164,6 +164,10 @@
                     setcookie('vendedor', 'cookie vendedor', time()+3600, '/');
                     echo '<script>window.location.href = "../Pages/vendedor.php"</script>';
                     exit;
+                } else if ($row['tipo'] == 'Mecânico') {
+                    mysqli_close($conn);
+                    echo "<script>alert('Não existe página para Mecânico.')</script>";
+                    echo '<script>window.location.href = "../login.html"</script>';
                 }
                 
             } else{

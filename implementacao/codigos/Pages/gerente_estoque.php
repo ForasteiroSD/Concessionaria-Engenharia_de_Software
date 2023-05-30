@@ -125,7 +125,7 @@
                 <div id='selected'>
                     <a href="gerente_estoque.php"><h3>Estoque</h3></a>
                 </div>
-                <h3>Relatórios</h3>
+                <a href="gerente_relatorios.php"><h3>Relatórios</h3></a>
             </div>
         </div>
 

@@ -341,6 +341,61 @@ form.remove{
     display: none;
 }
 
+.formsRelatorio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    gap: 40px;
+}
+
+.formsRelatorio .relatorios{
+    width: 410px;
+    height: 412px;
+    background-color: #eceaea;
+    border: 3px solid #807b7b;
+    border-radius: 15px;
+}
+
+.relatorios .form_rel{
+    display: flex;
+    flex-direction: column;
+}
+
+.form_rel h3, .form_rel h4{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 22px;
+}
+
+.form_rel h4{
+    line-height: 25px;
+}
+
+.form_rel img{
+    position: relative;
+    left: 92%;
+    top: -30px;
+    width: 25px;
+    cursor: pointer;
+}
+
+.form_rel div{
+    margin: 10px 20px;   
+}
+
+.form_rel input, .form_rel select{
+    width: 100%;
+    border: 1px solid #807b7b;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.form_rel button{
+    margin-left: calc(50% - 50px);
+    margin-bottom: 0px;
+}
+
 @media (max-width: 850px) {
 
     .consulta{

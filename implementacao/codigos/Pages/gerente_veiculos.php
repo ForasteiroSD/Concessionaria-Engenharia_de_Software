@@ -131,7 +131,7 @@
                 </div>
                 <a href="gerente_vendas.php"><h3>Vendas</h3></a>
                 <a href="gerente_estoque.php"><h3>Estoque</h3></a>
-                <h3>Relatórios</h3>
+                <a href="gerente_relatorios.php"><h3>Relatórios</h3></a>
             </div>
         </div>
 
