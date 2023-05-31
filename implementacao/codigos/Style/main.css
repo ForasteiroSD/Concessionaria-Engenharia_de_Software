@@ -353,31 +353,19 @@ form.remove{
     width: 410px;
     height: 412px;
     background-color: #eceaea;
-    border: 3px solid #807b7b;
+    border: 2px solid #807b7b;
     border-radius: 15px;
 }
 
-.relatorios .form_rel{
-    display: flex;
-    flex-direction: column;
-}
-
-.form_rel h3, .form_rel h4{
+.relatorios h3{
     text-align: center;
     margin-top: 20px;
     font-size: 22px;
 }
 
-.form_rel h4{
-    line-height: 25px;
-}
-
-.form_rel img{
-    position: relative;
-    left: 92%;
-    top: -30px;
-    width: 25px;
-    cursor: pointer;
+.relatorios .form_rel{
+    display: flex;
+    flex-direction: column;
 }
 
 .form_rel div{
@@ -393,7 +381,37 @@ form.remove{
 
 .form_rel button{
     margin-left: calc(50% - 50px);
-    margin-bottom: 0px;
+}
+
+form.n2{
+    margin-top: 35px;
+}
+
+#retornos{
+    display: flex;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+#retornos h3{
+    font-size: 18px;
+}
+
+#retornos{
+    text-align: center;
+}
+
+.atrib_rel .dados{
+    margin-top: 13px;
+}
+
+#retornos .atrib_rel {
+    width: 500px;
+    margin-top: 5px;
+}
+
+#somatorio {
+    text-align: center;
 }
 
 @media (max-width: 850px) {

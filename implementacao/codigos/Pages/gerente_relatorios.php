@@ -1,9 +1,9 @@
 <?php
-    // if(isset($_COOKIE['gerente'])){
-    //     setcookie('gerente', 'cookie gerente', time()+3600, '/');
-    // } else{
-    //     echo '<script>window.location.href = "../login.html";</script>';
-    // }
+    if(isset($_COOKIE['gerente'])){
+        setcookie('gerente', 'cookie gerente', time()+3600, '/');
+    } else{
+        echo '<script>window.location.href = "../login.html";</script>';
+    }
 
     $servername = "localhost";
     $database = "concessionaria";
@@ -87,15 +87,25 @@
 
        <div class='formsRelatorio'>
             <div class='relatorios'>
-                <form action="../Insert/insertestoque.php" class="form_rel" method='post'>
-                    <h3>Relatório de total Vendido por Marca</h3>
+                <h3>Relatório de Total Vendido por Marca</h3>
+                <form action="../Relatories/marcas.php" class="form_rel" method='post' id='form1'>
                     <div>
                         <label>Data Início:</label>
-                        <input type="date" name="data-i" required/>
+                        <input type="date" name="data-i" id='dataM1' value="<?php
+                                    $timezone = new DateTimeZone('America/Sao_Paulo');
+                                    $agora = new DateTime('now', $timezone); 
+                                    echo $agora->format('Y-m-d'); 
+                                ?>"
+                                required/>
                     </div>
                     <div>
                         <label>Data Final:</label>
-                        <input type="date" name="data-f" required/>
+                        <input type="date" name="data-f" id='dataM2' value="<?php
+                                    $timezone = new DateTimeZone('America/Sao_Paulo');
+                                    $agora = new DateTime('now', $timezone); 
+                                    echo $agora->format('Y-m-d'); 
+                                ?>"
+                                required/>
                     </div>
                     <div>
                         <label>Marca:</label>
@@ -110,7 +120,7 @@
                     </div>
                     <div>
                         <label>Total Mínimo:</label>
-                        <input type="number" name="total"/>
+                        <input type="number" name="total" value='0'/>
                     </div>
                     <div>
                         <button type="button" onclick='verificaDataMarca()'>
@@ -121,29 +131,39 @@
             </div>
 
             <div class='relatorios'>
-                <form action="../Insert/insertestoque.php" class="form_rel" method='post'>
-                    <h3>Relatório de Desempenho de Vendedores</h3>
+                <h3>Relatório de Desempenho de Vendedores</h3>
+                <form action="../Relatories/vendedores.php" class="form_rel n2" method='post' id='form2'>
                     <div>
                         <label>Data Início:</label>
-                        <input type="date" name="data-i" required/>
+                        <input type="date" name="data-i" id='dataV1' value="<?php
+                                    $timezone = new DateTimeZone('America/Sao_Paulo');
+                                    $agora = new DateTime('now', $timezone); 
+                                    echo $agora->format('Y-m-d'); 
+                                ?>"
+                                required/>
                     </div>
                     <div>
                         <label>Data Final:</label>
-                        <input type="date" name="data-f" required/>
+                        <input type="date" name="data-f" id='dataV2' value="<?php
+                                    $timezone = new DateTimeZone('America/Sao_Paulo');
+                                    $agora = new DateTime('now', $timezone); 
+                                    echo $agora->format('Y-m-d'); 
+                                ?>"
+                                required/>
                     </div>
                     <div>
                         <label>Vendedor:</label>
                         <select name="vendedor">
                             <option value="todos">Todos</option>
                             <?php
-                                for($j=0; $j < $i; $j++){
+                                for($j=0; $j < $k; $j++){
                                     echo "<option value='$vendedoresCPF[$j]'>$vendedoresNome[$j] - $vendedoresCPF[$j]</option>";
                                 }
                             ?>
                         </select>
                     </div>
                     <div>
-                        <button type="button" onclick='verificaDataMarca()'>
+                        <button type="button" onclick='verificaDataVenda()'>
                             Gerar
                         </button>
                     </div>
@@ -153,6 +173,31 @@
      
 
 </body>
+
+<script>
+    function verificaDataMarca(){
+        var data1 = document.getElementById('dataM1').value
+        var data2 = document.getElementById('dataM2').value
+
+        if(data1>data2){
+            alert("A data inicial deve ser maior que a data final");
+        } else {
+            document.getElementById('form1').submit()
+        }
+    }
+
+    function verificaDataVenda(){
+        var data1 = document.getElementById('dataV1').value
+        var data2 = document.getElementById('dataV2').value
+
+        if(data1>data2){
+            alert("A data inicial deve ser maior que a data final");
+        } else {
+            document.getElementById('form2').submit()
+        }
+    }
+</script>
+
 </html>
 
     
